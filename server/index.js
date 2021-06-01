@@ -16,13 +16,14 @@ app.get("/student/directory", async (req, res) => {
   snapshot.forEach((doc) => {
     studentList.push({ ...doc.data(), id: doc.id });
   });
-
   res.send(studentList);
   // res.sendStatus(200);
 });
 
 app.delete("/student/delete", async (req, res) => {
-  const id = req.body;
+  const { id } = req.body;
+  console.log(db.collection("students").doc(id));
+
   const resp = await db.collection("students").doc(id).delete();
   console.log(`Deleted element with id: ${id}`);
   res.sendStatus(200);

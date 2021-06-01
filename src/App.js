@@ -12,7 +12,7 @@ function App() {
   }, [setStudents]);
 
   if (!students) return <h1>loading...</h1>;
-  console.log(students);
+  // console.log("test", students);
 
   return (
     <div>

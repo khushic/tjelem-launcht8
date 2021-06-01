@@ -39,7 +39,8 @@ const Directory = ({ students }) => {
     gender,
     birthday,
     address,
-    parentNames
+    parentNames,
+    id
   ) {
     return {
       schoolID,
@@ -50,6 +51,7 @@ const Directory = ({ students }) => {
       birthday,
       address,
       parentNames,
+      id,
     };
   }
 
@@ -62,28 +64,28 @@ const Directory = ({ students }) => {
       student.gender,
       student.birthday,
       student.address,
-      student.parent_names
+      student.parent_names,
+      student.id
     )
   );
 
-  //   const handleDelete = (e) => {
-  //     // e.preventDefault();
-  //     // console.log(bookInfo.title, ", ", bookInfo.authors[0]);
-  //     let json = {
-  //       id: book.id,
-  //     };
+  const handleDelete = (id) => {
+    // e.preventDefault();
+    // console.log(bookInfo.title, ", ", bookInfo.authors[0]);
 
-  //     let url = new URL("http://localhost:8080/students/delete");
-  //     // url.searchParams.append("id", book.id);
-
-  //     fetch(url, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(json),
-  //     }).then((resp) => resp.json());
-  //   };
+    console.log(id);
+    let json = {
+      id: id,
+    };
+    let url = new URL("http://localhost:8000/student/delete");
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json),
+    }).then((resp) => resp.json());
+  };
 
   function Row({ row }) {
     const [open, setOpen] = useState(false);
@@ -122,9 +124,14 @@ const Directory = ({ students }) => {
                     <Button>
                       <EditIcon />
                     </Button>
-                    <Button onClick={console.log(row)}>
+                    <Button onClick={() => handleDelete(row.id)}>
                       <DeleteIcon />
                     </Button>
+                    {/* <form onSubmit={console.log(row.id)}>
+                      <Button type="submit" variant="outlined">
+                        <DeleteIcon />
+                      </Button>
+                    </form> */}
                   </div>
                 </div>
                 <Table>
