@@ -1,0 +1,12 @@
+h1 {
+  font-weight: normal;
+}
+
+.container {
+  padding: 20px;
+}
+
+.directory-dropdown {
+  display: flex;
+  justify-content: space-between;
+}

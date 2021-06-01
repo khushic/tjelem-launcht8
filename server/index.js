@@ -18,6 +18,13 @@ app.get("/student/directory", async (req, res) => {
   });
 
   res.send(studentList);
+  // res.sendStatus(200);
+});
+
+app.delete("/student/delete", async (req, res) => {
+  const id = req.body;
+  const resp = await db.collection("students").doc(id).delete();
+  console.log(`Deleted element with id: ${id}`);
   res.sendStatus(200);
 });
 
@@ -31,11 +38,7 @@ app.get("/teacher/directory", async (req, res) => {
   });
 
   res.send(teacherList);
-  res.sendStatus(200);
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+  // res.sendStatus(200);
 });
 
 app.listen(port, () => {
