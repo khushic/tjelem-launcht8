@@ -31,7 +31,7 @@ export default function OverallClassView() {
   }, []);
 
   return (
-    <div>
+    <div style={{ marginLeft: "20px", marginRight: "20px" }}>
       <h1>Overall Class View</h1>
       {classes && teachers && students ? (
         classes.map((c) => (
