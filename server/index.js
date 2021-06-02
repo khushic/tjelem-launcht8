@@ -13,9 +13,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/classes/get_class", async(req, res) => {
-  var teacher_id = req.query.teacher_id;
-  console.log(teacher_id);
-  db.collection("classes").where("teacher", "==", teacher_id).get()
+  var class_id = req.query.class_id;
+  console.log(class_id);
+  var classes = db.collection("classes").doc(class_id);
+
+  /*db.collection("classes").where("teacher", "==", teacher_id).get()
   .then((querySnapshot) => {
     res.send(querySnapshot[1]);
     querySnapshot.forEach((doc) => {
@@ -25,13 +27,13 @@ app.get("/classes/get_class", async(req, res) => {
   })
   .catch((error) => {
       console.log("Error getting documents: ", error);
-  });
+  });*/
 });
 
 app.post("/classes/add_student", async(req, res) => {
   console.log(req.body);
-  const {doc_id, student_id} = req.body;
-  var classes = db.collection("classes").doc(doc_id);
+  const {class_id, student_id} = req.body;
+  var classes = db.collection("classes").doc(class_id);
 
   var arrUnion = classes.update({
     students: admin.firestore.FieldValue.arrayUnion(student_id)
@@ -41,8 +43,8 @@ app.post("/classes/add_student", async(req, res) => {
 
 app.delete("/classes/remove_student", async(req, res) =>{
   console.log(req.body);
-  const {doc_id, student_id} = req.body;
-  var classes = db.collection("classes").doc(doc_id);
+  const {class_id, student_id} = req.body;
+  var classes = db.collection("classes").doc(class_id);
 
   var arrUnion = classes.update({
     students: admin.firestore.FieldValue.arrayRemove(student_id)
