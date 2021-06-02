@@ -21,6 +21,28 @@ app.get("/class/directory", async (req, res) => {
   // res.sendStatus(200);
 });
 
+app.post("/class/add", async (req, res) => {
+  const { grade_resource, students, teacher_id } = req.body;
+
+  const resp = await db.collection("classes").add({
+    grade_resource,
+    students,
+    teacher_id,
+  });
+
+  console.log("Added class with ID: ", resp.id);
+  res.sendStatus(200);
+});
+
+app.delete("/class/delete", async (req, res) => {
+  const { id } = req.body;
+  console.log(db.collection("classes").doc(id));
+
+  const resp = await db.collection("classes").doc(id).delete();
+  console.log(`Deleted element with id: ${id}`);
+  res.sendStatus(200);
+});
+
 app.get("/student/directory", async (req, res) => {
   const snapshot = await db.collection("students").get();
 
