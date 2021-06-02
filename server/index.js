@@ -64,10 +64,24 @@ app.put("/classes/update_grades", async(req, res) => {
       res.sendStatus(200);
   })
   .catch((error) => {
-      // The document probably doesn't exist.
       console.error("Error updating document: ", error);
   });
+});
 
+app.put("/classes/update_teacher", async(req, res) => {
+  const {class_id, new_teacher} = req.body;
+  var classes = db.collection("classes").doc(class_id);
+
+  classes.update({
+    teacher_id: new_teacher
+  })
+  .then(() => {
+      console.log("Document successfully updated!");
+      res.sendStatus(200);
+  })
+  .catch((error) => {
+      console.error("Error updating document: ", error);
+  });
 });
 
 app.listen(port, () => {
