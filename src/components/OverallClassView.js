@@ -37,7 +37,7 @@ export default function OverallClassView() {
         classes.map((c) => (
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Grade: {c.grade}</Typography>
+              <Typography>Grade: {c.grade_resource}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div style={{ flexBasis: "33.33%" }}>
@@ -45,13 +45,9 @@ export default function OverallClassView() {
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>
                       Teacher:{" "}
-                      {teachers.find((t) => t.id === c.teacher_id)[
-                        "first name"
-                      ] +
+                      {teachers.find((t) => t.id === c.teacher_id).first_name +
                         " " +
-                        teachers.find((t) => t.id === c.teacher_id)[
-                          "last name"
-                        ]}
+                        teachers.find((t) => t.id === c.teacher_id).last_name}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -62,14 +58,11 @@ export default function OverallClassView() {
                         >
                           Student:{" "}
                           {students.find((s) => s.id === student) !== undefined
-                            ? students.find((s) => s.id === student)[
-                                "first_name"
-                              ] +
+                            ? students.find((s) => s.id === student)
+                                .first_name +
                               " " +
-                              students.find((s) => s.id === student)[
-                                "last_name"
-                              ]
-                            : student}
+                              students.find((s) => s.id === student).last_name
+                            : "undef"}
                         </Typography>
                         <br></br>
                       </div>
