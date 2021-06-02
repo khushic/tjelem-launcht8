@@ -27,6 +27,23 @@ app.get("/classes/get_class", async(req, res) => {
   });
 });
 
+app.get("/classes/teacher_name", async(req, res) => {
+  var teacher_id = req.query.teacher_id;
+  var teacher = db.collection("teachers").doc(teacher_id);
+  teacher.get().then((doc) => {
+    if (doc.exists) {
+        res.send({
+          "first_name": doc.data().first_name,
+          "last_name": doc.data().last_name,
+        });
+    } else {
+        res.sendStatus(404);
+    }
+  }).catch((error) => {
+    res.sendStatus(404);
+  });
+});
+
 app.get("/classes/student_grade", async(req, res) => {
   var student_id = req.query.student_id;
   var student = db.collection("students").doc(student_id);
