@@ -6,7 +6,7 @@ const db = require('./firebase');
 var admin = require('firebase-admin');
 const axios = require('axios');
 app.use(express.json())
-
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -19,6 +19,24 @@ app.get("/classes/get_class", async(req, res) => {
   classes.get().then((doc) => {
     if (doc.exists) {
         res.send(doc.data());
+    } else {
+        res.sendStatus(404);
+    }
+  }).catch((error) => {
+    res.sendStatus(404);
+  });
+});
+
+app.get("/classes/student_grade", async(req, res) => {
+  var student_id = req.query.student_id;
+  var student = db.collection("students").doc(student_id);
+  student.get().then((doc) => {
+    if (doc.exists) {
+        res.send({
+          "first_name": doc.data().first_name,
+          "last_name": doc.data().last_name,
+          "class_grade": doc.data().class_grade
+        });
     } else {
         res.sendStatus(404);
     }
