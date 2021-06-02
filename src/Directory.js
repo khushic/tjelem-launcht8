@@ -18,6 +18,9 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
+import Modal from "@material-ui/core/Modal";
+import TextField from "@material-ui/core/TextField";
 import moment from "moment";
 
 moment().format();
@@ -69,6 +72,44 @@ const Directory = ({ students }) => {
     )
   );
 
+  /******* Modal Code ********/
+
+  function getModalStyle() {
+    const top = 50;
+    const left = 50;
+
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      position: "absolute",
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+
+  const classes = useStyles();
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  const [modalStyle] = useState(getModalStyle);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  /******** End Modal Code *******/
+
   const handleDelete = (id) => {
     // e.preventDefault();
     // console.log(bookInfo.title, ", ", bookInfo.authors[0]);
@@ -77,13 +118,42 @@ const Directory = ({ students }) => {
     let json = {
       id: id,
     };
-    let url = new URL("http://localhost:8000/student/delete");
+    let url = new URL("http://localhost:8000/student/directory/delete");
     fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(json),
+    }).then((resp) => resp.json());
+  };
+
+  //   const handleAdd = () => {};
+
+  const handleAdd = (e) => {
+    // e.preventDefault();
+    let data = {
+      student_id: document.getElementById("addID").value,
+      last_name: document.getElementById("addLastName").value,
+      first_name: document.getElementById("addFirstName").value,
+      grade: parseInt(document.getElementById("addGrade").value),
+      gender: document.getElementById("addGender").value,
+      birthday: new Date(document.getElementById("addBirthday").value),
+      parent_names: [document.getElementById("addParents").value],
+      address: document.getElementById("addAddress").value,
+      class_grade: -1,
+    };
+    let url = new URL("http://localhost:8000/student/directory/add");
+
+    // console.log(JSON.stringify(data));
+    // console.log(JSON.parse(JSON.stringify(data)));
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     }).then((resp) => resp.json());
   };
 
@@ -94,13 +164,19 @@ const Directory = ({ students }) => {
     return (
       <Fragment>
         <TableRow className={classes.root}>
-          <TableCell>{row.schoolID}</TableCell>
-          <TableCell align="right">{row.lastName}</TableCell>
-          <TableCell align="right">{row.firstName}</TableCell>
-          <TableCell align="right">{row.grade}</TableCell>
-          <TableCell align="right">{row.gender}</TableCell>
+          <TableCell>{row.schoolID ? row.schoolID : ""}</TableCell>
           <TableCell align="right">
-            {moment(row.birthday).format("DD/MM/YY")}
+            {row.lastName ? row.lastName : ""}
+          </TableCell>
+          <TableCell align="right">
+            {row.firstName ? row.firstName : ""}
+          </TableCell>
+          <TableCell align="right">{row.grade ? row.grade : ""}</TableCell>
+          <TableCell align="right">{row.gender ? row.gender : ""}</TableCell>
+          <TableCell align="right">
+            {moment(row.birthday).format("DD/MM/YY")
+              ? moment(row.birthday).format("DD/MM/YY")
+              : ""}
           </TableCell>
           <TableCell align="right">
             <IconButton
@@ -122,16 +198,11 @@ const Directory = ({ students }) => {
                   </Typography>
                   <div style={{ display: "flex" }}>
                     <Button>
-                      <EditIcon />
+                      <EditIcon onClick={() => console.log("editing")} />
                     </Button>
                     <Button onClick={() => handleDelete(row.id)}>
                       <DeleteIcon />
                     </Button>
-                    {/* <form onSubmit={console.log(row.id)}>
-                      <Button type="submit" variant="outlined">
-                        <DeleteIcon />
-                      </Button>
-                    </form> */}
                   </div>
                 </div>
                 <Table>
@@ -144,9 +215,11 @@ const Directory = ({ students }) => {
                   <TableBody>
                     <TableRow>
                       <TableCell component="th" scope="row">
-                        {row.address}
+                        {row.address ? row.address : ""}
                       </TableCell>
-                      <TableCell>{row.parentNames.toString()}</TableCell>
+                      <TableCell>
+                        {row.parentNames ? row.parentNames.toString() : ""}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -162,8 +235,50 @@ const Directory = ({ students }) => {
 
   return (
     <div className="container">
-      <div>
+      <div className="header">
         <h1>Student Directory</h1>
+        <div>
+          <Button onClick={handleOpen}>
+            <AddIcon /> Add Student
+          </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <div style={modalStyle} className={classes.paper}>
+              <h2 id="simple-modal-title">Add a Student</h2>
+
+              <form
+                id="simple-modal-description"
+                className="student-add-form"
+                onSubmit={handleAdd}
+              >
+                <p>Student ID</p>
+                <TextField id="addID" required />
+                <p>Last Name</p>
+                <TextField id="addLastName" required />
+                <p>First Name</p>
+                <TextField id="addFirstName" required />
+                <p>Grade</p>
+                <TextField id="addGrade" required />
+                <p>Gender</p>
+                <TextField id="addGender" required />
+                <p>Birthday</p>
+                <TextField type="date" id="addBirthday" required />
+                <p>Address</p>
+                <TextField id="addAddress" required />
+                <p>Parent/Guardian(s) (separate with comma)</p>
+                <TextField id="addParents" required />
+                <br />
+                <Button type="submit" variant="contained" color="primary">
+                  Create Student
+                </Button>
+              </form>
+            </div>
+          </Modal>
+        </div>
       </div>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -179,8 +294,8 @@ const Directory = ({ students }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} />
+            {rows.map((row, key) => (
+              <Row key={key} row={row} />
             ))}
           </TableBody>
         </Table>

@@ -10,3 +10,16 @@ h1 {
   display: flex;
   justify-content: space-between;
 }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 3px solid pink; */
+}
+
+.student-add-form {
+  display: flex;
+  flex-direction: column;
+}

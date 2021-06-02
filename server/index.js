@@ -20,12 +20,55 @@ app.get("/student/directory", async (req, res) => {
   // res.sendStatus(200);
 });
 
-app.delete("/student/delete", async (req, res) => {
+app.delete("/student/directory/delete", async (req, res) => {
   const { id } = req.body;
-  console.log(db.collection("students").doc(id));
+  // console.log(db.collection("students").doc(id));
 
   const resp = await db.collection("students").doc(id).delete();
   console.log(`Deleted element with id: ${id}`);
+
+  // const snapshot = await db.collection("students").get();
+
+  // let studentList = [];
+
+  // snapshot.forEach((doc) => {
+  //   studentList.push({ ...doc.data(), id: doc.id });
+  // });
+  // res.send(studentList);
+
+  res.sendStatus(200);
+  //add get to to produce response of array for instant update
+});
+
+app.post("/student/directory/add", async (req, res) => {
+  // console.log(req.body);
+
+  const {
+    address,
+    birthday,
+    class_grade,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    parent_names,
+    student_id,
+  } = req.body;
+
+  const resp = await db.collection("students").add({
+    address,
+    birthday,
+    class_grade,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    parent_names,
+    student_id,
+  });
+
+  console.log(`Added element with id: ${resp.id}`);
+
   res.sendStatus(200);
 });
 
