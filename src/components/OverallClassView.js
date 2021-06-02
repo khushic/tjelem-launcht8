@@ -40,7 +40,7 @@ export default function OverallClassView() {
               <Typography>Grade: {c.grade_resource}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <div style={{ flexBasis: "33.33%" }}>
+              <div style={{}}>
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>
@@ -54,7 +54,10 @@ export default function OverallClassView() {
                     {c.students.map((student) => (
                       <div>
                         <Typography
-                          style={{ marginLeft: "5px", marginRight: "5px" }}
+                          style={{
+                            marginLeft: "5px",
+                            marginRight: "5px",
+                          }}
                         >
                           Student:{" "}
                           {students.find((s) => s.id === student) !== undefined
@@ -62,7 +65,7 @@ export default function OverallClassView() {
                                 .first_name +
                               " " +
                               students.find((s) => s.id === student).last_name
-                            : "undef"}
+                            : "undefined"}
                         </Typography>
                         <br></br>
                       </div>
