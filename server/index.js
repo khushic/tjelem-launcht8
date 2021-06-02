@@ -52,6 +52,24 @@ app.delete("/classes/remove_student", async(req, res) =>{
   res.sendStatus(200);
 });
 
+app.put("/classes/update_grades", async(req, res) => {
+  const {student_id, new_grade} = req.body;
+  var students = db.collection("students").doc(student_id);
+
+  students.update({
+    class_grade: new_grade
+  })
+  .then(() => {
+      console.log("Document successfully updated!");
+      res.sendStatus(200);
+  })
+  .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+  });
+
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
 });
