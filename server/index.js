@@ -18,7 +18,32 @@ app.get("/class/directory", async (req, res) => {
   });
 
   res.send(classList);
-  res.sendStatus(200);
+  // res.sendStatus(200);
+});
+
+app.get("/student/directory", async (req, res) => {
+  const snapshot = await db.collection("students").get();
+
+  let studentList = [];
+
+  snapshot.forEach((doc) => {
+    studentList.push({ ...doc.data(), id: doc.id });
+  });
+  res.send(studentList);
+  // res.sendStatus(200);
+});
+
+app.get("/teacher/directory", async (req, res) => {
+  const snapshot = await db.collection("teachers").get();
+
+  let teacherList = [];
+
+  snapshot.forEach((doc) => {
+    teacherList.push({ ...doc.data(), id: doc.id });
+  });
+
+  res.send(teacherList);
+  // res.sendStatus(200);
 });
 
 app.get("/", (req, res) => {
