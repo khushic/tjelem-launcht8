@@ -128,29 +128,53 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
 
   //   const handleAdd = () => {};
 
-  const handleAdd = (e) => {
-    // e.preventDefault();
-    let data = {
-      email: document.getElementById("addEmail").value,
-      last_name: document.getElementById("addLastName").value,
-      first_name: document.getElementById("addFirstName").value,
-      grade: parseInt(document.getElementById("addGrade").value),
-      gender: document.getElementById("addGender").value,
-      birthday: new Date(document.getElementById("addBirthday").value),
-      address: document.getElementById("addAddress").value,
-    };
-    let url = new URL("http://localhost:8000/teacher/directory/add");
+  const [addEmail, setAddEmail] = useState("");
+  const [addLastName, setAddLastName] = useState("");
+  const [addFirstName, setAddFirstName] = useState("");
+  const [addGrade, setAddGrade] = useState("");
+  const [addGender, setAddGender] = useState("");
+  const [addBirthday, setAddBirthday] = useState("");
+  const [addAddress, setAddAddress] = useState("");
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((resp) => setTeachers(resp));
+  const handleAdd = (e) => {
+    e.preventDefault();
+    let data = {
+      email: addEmail,
+      last_name: addLastName,
+      first_name: addFirstName,
+      grade: parseInt(addGrade),
+      gender: addGender,
+      birthday: addBirthday,
+      address: addAddress,
+    };
+
+    let IDs = [];
+
+    teachers.forEach((teacher) => IDs.push(teacher.email));
+
+    if (!IDs.includes(addEmail)) {
+      let url = new URL("http://localhost:8000/teacher/directory/add");
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => setTeachers(resp));
+    } else {
+      alert("This email already exists.");
+    }
     handleClose();
+    setAddEmail("");
+    setAddLastName("");
+    setAddFirstName("");
+    setAddGrade("");
+    setAddGender("");
+    setAddBirthday("");
+    setAddAddress("");
   };
 
   function EditModal({ row }) {
@@ -384,19 +408,49 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                 onSubmit={handleAdd}
               >
                 <p>Email Address</p>
-                <TextField id="addEmail" required />
+                <TextField
+                  value={addEmail}
+                  onChange={(e) => setAddEmail(e.target.value)}
+                  required
+                />
                 <p>Last Name</p>
-                <TextField id="addLastName" required />
+                <TextField
+                  value={addLastName}
+                  onChange={(e) => setAddLastName(e.target.value)}
+                  required
+                />
                 <p>First Name</p>
-                <TextField id="addFirstName" required />
+                <TextField
+                  value={addFirstName}
+                  onChange={(e) => setAddFirstName(e.target.value)}
+                  required
+                />
                 <p>Grade</p>
-                <TextField id="addGrade" required />
+                <TextField
+                  value={addGrade}
+                  onChange={(e) => setAddGrade(e.target.value)}
+                  required
+                />
                 <p>Gender</p>
-                <TextField id="addGender" required />
+                <TextField
+                  value={addGender}
+                  onChange={(e) => setAddGender(e.target.value)}
+                  required
+                />
                 <p>Birthday</p>
-                <TextField type="date" id="addBirthday" required />
+                <TextField
+                  type="date"
+                  value={addBirthday}
+                  onChange={(e) => setAddBirthday(e.target.value)}
+                  required
+                />
                 <p>Address</p>
-                <TextField id="addAddress" required />
+                <TextField
+                  value={addAddress}
+                  onChange={(e) => setAddAddress(e.target.value)}
+                  required
+                />
+
                 <br />
                 <Button type="submit" variant="contained" color="primary">
                   Create Teacher

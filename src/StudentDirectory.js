@@ -21,6 +21,11 @@ import AddIcon from "@material-ui/icons/Add";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import moment from "moment";
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogActions from "@material-ui/core/DialogActions";
+// import DialogContent from "@material-ui/core/DialogContent";
+// import DialogContentText from "@material-ui/core/DialogContentText";
+// import DialogTitle from "@material-ui/core/DialogTitle";
 
 moment().format();
 
@@ -109,6 +114,14 @@ const StudentDirectory = ({ students, setStudents }) => {
 
   /******** End Modal Code *******/
 
+  // const [dialogOpen, setDialogOpen] = useState(false);
+  // const handleDialogOpen = () => {
+  //   setDialogOpen(true);
+  // };
+  // const handleDialogClosed = () => {
+  //   setDialogOpen(false);
+  // };
+
   const handleDelete = (id) => {
     // e.preventDefault();
     // console.log(bookInfo.title, ", ", bookInfo.authors[0]);
@@ -131,31 +144,89 @@ const StudentDirectory = ({ students, setStudents }) => {
 
   //   const handleAdd = () => {};
 
+  const [addID, setAddID] = useState("");
+  const [addLastName, setAddLastName] = useState("");
+  const [addFirstName, setAddFirstName] = useState("");
+  const [addGrade, setAddGrade] = useState("");
+  const [addGender, setAddGender] = useState("");
+  const [addBirthday, setAddBirthday] = useState("");
+  const [addParents, setAddParents] = useState("");
+  const [addAddress, setAddAddress] = useState("");
+
+  // const ExistensialDialog = () => {
+  //   return (
+  //     <Dialog
+  //       open={dialogOpen}
+  //       onClose={handleDialogClosed}
+  //       aria-labelledby="alert-dialog-title"
+  //       aria-describedby="alert-dialog-description"
+  //     >
+  //       <DialogTitle id="alert-dialog-title">
+  //         {"Use Google's location service?"}
+  //       </DialogTitle>
+  //       <DialogContent>
+  //         <DialogContentText id="alert-dialog-description">
+  //           Let Google help apps determine location. This means sending
+  //           anonymous location data to Google, even when no apps are running.
+  //         </DialogContentText>
+  //       </DialogContent>
+  //       <DialogActions>
+  //         <Button onClick={handleDialogClosed} color="primary">
+  //           Disagree
+  //         </Button>
+  //         <Button onClick={handleDialogClosed} color="primary" autoFocus>
+  //           Agree
+  //         </Button>
+  //       </DialogActions>
+  //     </Dialog>
+  //   );
+  // };
+
   const handleAdd = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+
     let data = {
-      student_id: document.getElementById("addID").value,
-      last_name: document.getElementById("addLastName").value,
-      first_name: document.getElementById("addFirstName").value,
-      grade: parseInt(document.getElementById("addGrade").value),
-      gender: document.getElementById("addGender").value,
-      birthday: new Date(document.getElementById("addBirthday").value),
-      parent_names: [document.getElementById("addParents").value],
-      address: document.getElementById("addAddress").value,
+      student_id: addID,
+      last_name: addLastName,
+      first_name: addFirstName,
+      grade: parseInt(addGrade),
+      gender: addGender,
+      birthday: addBirthday,
+      parent_names: addParents,
+      address: addAddress,
       class_grade: -1,
     };
-    let url = new URL("http://localhost:8000/student/directory/add");
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((resp) => setStudents(resp));
+    let IDs = [];
+
+    students.forEach((student) => IDs.push(student.student_id));
+
+    if (!IDs.includes(addID)) {
+      let url = new URL("http://localhost:8000/student/directory/add");
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => setStudents(resp));
+    } else {
+      // handleDialogOpen();
+      // <ExistensialDialog />;
+      alert("This ID already exists.");
+    }
     handleClose();
+    setAddID("");
+    setAddLastName("");
+    setAddFirstName("");
+    setAddGrade("");
+    setAddGender("");
+    setAddBirthday("");
+    setAddParents("");
+    setAddAddress("");
   };
 
   function EditModal({ row }) {
@@ -415,21 +486,54 @@ const StudentDirectory = ({ students, setStudents }) => {
                 onSubmit={handleAdd}
               >
                 <p>Student ID</p>
-                <TextField id="addID" required />
+                <TextField
+                  value={addID}
+                  onChange={(e) => setAddID(e.target.value)}
+                  required
+                />
                 <p>Last Name</p>
-                <TextField id="addLastName" required />
+                <TextField
+                  value={addLastName}
+                  onChange={(e) => setAddLastName(e.target.value)}
+                  required
+                />
                 <p>First Name</p>
-                <TextField id="addFirstName" required />
+                <TextField
+                  value={addFirstName}
+                  onChange={(e) => setAddFirstName(e.target.value)}
+                  required
+                />
                 <p>Grade</p>
-                <TextField id="addGrade" required />
+                <TextField
+                  value={addGrade}
+                  onChange={(e) => setAddGrade(e.target.value)}
+                  required
+                />
                 <p>Gender</p>
-                <TextField id="addGender" required />
+                <TextField
+                  value={addGender}
+                  onChange={(e) => setAddGender(e.target.value)}
+                  required
+                />
                 <p>Birthday</p>
-                <TextField type="date" id="addBirthday" required />
+                <TextField
+                  type="date"
+                  value={addBirthday}
+                  onChange={(e) => setAddBirthday(e.target.value)}
+                  required
+                />
                 <p>Address</p>
-                <TextField id="addAddress" required />
+                <TextField
+                  value={addAddress}
+                  onChange={(e) => setAddAddress(e.target.value)}
+                  required
+                />
                 <p>Parent/Guardian(s) (separate with comma)</p>
-                <TextField id="addParents" required />
+                <TextField
+                  value={addParents}
+                  onChange={(e) => setAddParents(e.target.value)}
+                  required
+                />
                 <br />
                 <Button type="submit" variant="contained" color="primary">
                   Create Student

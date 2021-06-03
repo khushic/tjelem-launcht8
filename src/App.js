@@ -27,9 +27,11 @@ function App() {
           position: "absolute",
           top: "50%",
           left: "50%",
+          textAlign: "center",
         }}
       >
         <CircularProgress />
+        <p>Connecting to Database...</p>
       </div>
     );
   // if (!teachers) return <h1>loading...</h1>;
