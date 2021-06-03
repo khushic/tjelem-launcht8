@@ -3,6 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -25,10 +26,25 @@ export default function SchoolDirClass() {
       {classes ? (
         classes.map((c) => (
           <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Grade: {c.grade_resource}</Typography>
+            <AccordionSummary
+              style={{ backgroundColor: "red" }}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography style={{ flexBasis: "20%" }}>
+                Grade: {c.grade_resource}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  console.log("hello world");
+                }}
+                style={{ marginLeft: "auto", marginRight: "0" }}
+              >
+                Modify
+              </Button>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails style={{ backgroundColor: "grey" }}>
               <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <SchoolDirTeacher teacherId={c.teacher_id} />
