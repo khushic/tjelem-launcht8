@@ -63,7 +63,6 @@ app.get("/classes/student_grade", async(req, res) => {
 });
 
 app.get("/classes/get_all_students", async(req, res) => {
-  console.log("hi");
   var class_id = req.query.class_id;
   const students = await db.collection("students").get();
   const student_list = [];
