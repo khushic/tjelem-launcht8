@@ -41,7 +41,7 @@ export default function SchoolDirClass() {
                 }}
                 style={{ marginLeft: "auto", marginRight: "0" }}
               >
-                Modify
+                Delete
               </Button>
             </AccordionSummary>
             <AccordionDetails style={{ backgroundColor: "grey" }}>
