@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import StudentGrades from "./StudentGrades"
+import axios from 'axios';
 
 function ClassPage(props){
   const [students, setStudents] = useState([]);
   const [teacher, setTeacher] = useState([]);
+  const [newStudents, setNewStudents] = useState([]);
   var class_id="U2L8HoOduUTS7yyENHO8";
 
   var student_list = [];
@@ -69,16 +71,64 @@ function ClassPage(props){
       setStudents(student_list);
       return students;
     });
+    updateSelectDropdown();
+    updateSelectDropdown();
+    updateSelectDropdown();
+  }
+
+  const updateSelectDropdown = () => {
+    const url = new URL("http://localhost:5000/classes/get_all_students")
+    url.searchParams.append("class_id", class_id);
+    fetch(url)
+    .then((resp) => {
+      var temp = resp.json();
+      return temp;
+    })
+    .then((obj) => {
+      var newStud = obj.map((o) => (
+        <option value={o.id}>{o.last_name}, {o.first_name}</option>
+      ));
+      setNewStudents(newStud);
+      return newStud;
+    });
   }
 
   useEffect(() => {
     updateClassInfo();
+    document.getElementById("add-student-div").classList.add("invisible");
   }, []);
 
+  useEffect(() => {
+    console.log("hi");
+    console.log(students);
+  }, [students]);
+
   const addStudent = () => {
+    document.getElementById("add-student-div").classList.remove("invisible");
+    document.getElementById("editStudents").classList.add("invisible");
+  }
 
-  };
+  const cancelEdit = () => {
+    document.getElementById("add-student-div").classList.add("invisible");
+    document.getElementById("editStudents").classList.remove("invisible");
+  }
 
+  const updateStudent = () => {
+    var e = document.getElementById("add_dropdown").value;
+    console.log(e);
+    const url = new URL("http://localhost:5000/classes/add_student")
+    const data = { "class_id": class_id, "student_id": e };
+    axios.post(url, data)
+    .then((resp) => {
+      console.log(resp);
+      return resp;
+    })
+    updateClassInfo();
+    updateClassInfo();
+    updateClassInfo();
+    document.getElementById("add-student-div").classList.add("invisible");
+    document.getElementById("editStudents").classList.remove("invisible");
+  }
 
   return (
     <div>
@@ -86,11 +136,22 @@ function ClassPage(props){
       <div className="row row-cust">
         <p>Teacher: {teacher}</p>
       </div>
-      <div id="addButton">
-        <button className="btn-custom" onClick={() => addStudent()}>
+
+      <div id="add-student-div" className="invisible_cust">
+        <select id="add_dropdown">
+          {newStudents}
+        </select>
+        <button id="updateStudents" className="btn-custom" onClick={() => updateStudent()}>
           Add Student
         </button>
+        <button id="cancelStudents" className="btn-custom" onClick={() => cancelEdit()}>
+          Cancel
+        </button>
       </div>
+
+      <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
+        Add Student
+      </button>
       {students}
     </div>
   );
