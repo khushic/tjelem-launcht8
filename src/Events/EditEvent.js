@@ -25,21 +25,23 @@ const useStyles = makeStyles((theme) => ({
       };
 
       const changeData = (ID)=> {
-        if (editedTime !== ""){
+        let temp = editedDate;
+        if (editedTime !== "All Day"){
             const addon = moment(editedTime, 'hh:mm a').format('HH:mm');
             console.log(addon)
-            const temp = editedDate + "T" + addon
-            setEditedDate(temp);
-            console.log(editedDate)
+            temp+= "T"
+            temp+= addon
             setEditedTime("")
         }
+        console.log(temp)
         const updated = {
           id: ID,
           title: editedTitle,
-          start: editedDate,
+          start: temp,
           description: editedDescription,
           location: editedLocation,
-          time: editedTime
+          time: editedTime,
+          displaydate: editedDate
       }
       axios.put("http://localhost:8000/events/edit", updated)
       .then(response => {
@@ -97,8 +99,8 @@ const useStyles = makeStyles((theme) => ({
         <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Title</h2>
           <TextField style={{width:400}}  onChange={handleChange('title')} value={editedTitle}></TextField></div>
           <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Date and Time</h2> <Clock style={{ marginRight:7, marginTop:20}}></Clock>
-          <TextField style={{width:200}} label="Date (YYYY-MM-DD)" onChange={handleChange('date')} value={editedDate}></TextField>
-          <ClockIcon style={{marginLeft:10}}></ClockIcon><TextField style={{marginLeft:10, width:155}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
+          <TextField style={{width:200}} label="Date (YYYY-MM-DD" onChange={handleChange('date')} value={editedDate}></TextField>
+          <ClockIcon style={{marginLeft:10}}></ClockIcon><TextField style={{marginLeft:10, width:155}} label="HH:MM am/pm"  onChange={handleChange('time')} value={editedTime}/></div>
           <div style={{ marginTop:10, marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Description</h2><Description style={{marginTop:6, marginRight:7}}></Description> 
           <TextField multiline rowsMax={2} style={{width:400}}  onChange={handleChange('description')} value={editedDescription}></TextField></div>
           <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}><h2 style={{fontWeight: "normal"}}>Location</h2> <Location style={{marginTop:6, marginRight:7}}></Location>

@@ -70,10 +70,11 @@ const getDate = (format) =>{
 const changeEditState = (date, title, description, location) =>{
     if (editState === false){
         setEditState(true);
-        setEditedDate(undefined);
+        setEditedDate(date);
         setEditedTitle(title);
         setEditedDescription(description);
-        setEditedLocation(location)
+        setEditedLocation(location);
+        setEditedTime(time(event))
     } else {
     
         setEditState(false);
@@ -164,7 +165,7 @@ const time = (each) =>{
             setOpen={setOpen}
             setEvents={setEvents}
             id={event.publicId}></DeleteEvent>
-            <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:10}} onClick={()=>changeEditState(getDate(date.start), event.title, event.extendedProps.description, event.extendedProps.location)}>
+            <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:10}} onClick={()=>changeEditState(event.extendedProps.displaydate, event.title, event.extendedProps.description, event.extendedProps.location)}>
               <EditButton></EditButton></Button>
     
         </DialogActions>

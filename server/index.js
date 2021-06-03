@@ -24,19 +24,20 @@ app.get('/events/get', async (req, res)=> {
 })
 
 app.post("/events/add", async (req, res)=>{
-  const {title , description, location, start, time} = req.body;
+  const {title , description, location, start, time, displaydate} = req.body;
   console.log(description)
   const resp = await db.collection("events").add({
       title,
       description,
       location,
       start,
-      time
+      time,
+      displaydate
   });
   console.log("added document with id: ", resp.id)
 })
 app.put("/events/edit", async (req, res)=>{
-  const {title , description, location, start, id, time} = req.body;
+  const {title , description, location, start, id, time, displaydate} = req.body;
   console.log("edited",id)
   console.log(start)
   const change = db.collection('events').doc(id);
@@ -45,6 +46,7 @@ app.put("/events/edit", async (req, res)=>{
     description,
     location,
     time,
+    displaydate,
     start});
 })
 

@@ -47,20 +47,20 @@ const updateData = () =>{
 
 
 const addEvent = () =>{
+  let temp = newdate;
     if (time !== ""){
-        let temp = newdate;
         let addon = moment(time, 'hh:mm a').format('HH:mm');
         temp += "T"
         temp += addon
-        setDate(temp);
         setTime("")
     }
   const newEvent = {
     title: newtitle,
     description:  newdescription,
     location: newlocation,
-    start: newdate,
-    time: time
+    start: temp,
+    time: time,
+    displaydate: newdate
   }
   axios.post("http://localhost:8000/events/add", newEvent)
   .then(response => {
