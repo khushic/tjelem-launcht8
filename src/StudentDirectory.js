@@ -333,24 +333,6 @@ const StudentDirectory = ({ students, setStudents }) => {
               ? moment(row.birthday).format("DD/MM/YY")
               : ""}
           </TableCell>
-          <TableCell align="right">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              {/* <div> */}
-              {/* <Button id={row.id} onClick={handleEditOpen}>
-                  <EditIcon />
-                </Button> */}
-              <EditModal row={row} />
-              {/* </div> */}
-              <Button onClick={() => handleDelete(row.id)}>
-                <DeleteIcon />
-              </Button>
-            </div>
-          </TableCell>
 
           <TableCell align="right">
             <IconButton
@@ -363,13 +345,24 @@ const StudentDirectory = ({ students, setStudents }) => {
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box margin={1}>
                 <div className="directory-dropdown">
                   <Typography variant="h6" gutterBottom component="div">
                     Additional Information
                   </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <EditModal row={row} />
+                    <Button onClick={() => handleDelete(row.id)}>
+                      <DeleteIcon />
+                    </Button>
+                  </div>
                 </div>
                 <Table>
                   <TableHead>
@@ -456,9 +449,7 @@ const StudentDirectory = ({ students, setStudents }) => {
               <TableCell align="right">Grade</TableCell>
               <TableCell align="right">Gender</TableCell>
               <TableCell align="right">Birthday</TableCell>
-              <TableCell align="right" style={{ paddingRight: "50px" }}>
-                Modify Cell
-              </TableCell>
+
               <TableCell align="right" />
             </TableRow>
           </TableHead>
