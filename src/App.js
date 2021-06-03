@@ -1,10 +1,10 @@
 import "./App.css";
-import OverallClassView from "./components/OverallClassView";
+import SchoolDirectory from "./components/SchoolDirectory";
 
 function App() {
   return (
     <div className="App">
-      <OverallClassView />
+      <SchoolDirectory />
     </div>
   );
 }
