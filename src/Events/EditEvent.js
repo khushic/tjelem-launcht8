@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
       updateData();
       updateData();
      // handleClose();
-      setEditState(false)
       updateData();
       handleClose()
       }

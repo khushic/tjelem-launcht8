@@ -67,7 +67,7 @@ const getDate = (format) =>{
 const changeEditState = (date, title, description, location) =>{
     if (editState === false){
         setEditState(true);
-        setEditedDate(date);
+        setEditedDate(undefined);
         setEditedTitle(title);
         setEditedDescription(description);
         setEditedLocation(location)
