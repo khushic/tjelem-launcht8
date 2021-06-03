@@ -1,4 +1,7 @@
 import "./App.css";
+import "./index.css"
+import ClassPage from './components/ClassPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AllClasses from "./components/AllClasses";
 import StudentDirectory from "./StudentDirectory";
 import TeacherDirectory from "./TeacherDirectory";
@@ -48,7 +51,7 @@ function App() {
         <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/AllClasses"><AllClasses /></Route>
-        <Route path="/ClassPage"  />
+        <Route path="/ClassPage"><ClassPage /></Route>
         <Route path="/StudentDirectory"><StudentDirectory students={students} setStudents={setStudents} /></Route>
         <Route path="/TeacherDirectory"><TeacherDirectory teachers={teachers} setTeachers={setTeachers} /></Route>
         <Route path="/Calendar"  component={Calendar} />
