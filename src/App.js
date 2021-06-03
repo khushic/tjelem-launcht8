@@ -2,6 +2,7 @@ import "./App.css";
 import StudentDirectory from "./StudentDirectory";
 import TeacherDirectory from "./TeacherDirectory";
 import React, { useState, useEffect } from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() {
   const [students, setStudents] = useState(null);
@@ -19,8 +20,19 @@ function App() {
       .then((resp) => setTeachers(resp));
   }, [setTeachers]);
 
-  if (!students) return <h1>loading...</h1>;
-  if (!teachers) return <h1>loading...</h1>;
+  if (!students || !teachers)
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  // if (!teachers) return <h1>loading...</h1>;
   // console.log("test", students);
 
   return (
