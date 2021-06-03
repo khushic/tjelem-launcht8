@@ -1,8 +1,8 @@
 import './App.css';
 import Calendar from "./Events/Calendar"
 import Sidebar from "./Dashboard/Sidebar"
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import React,{Fragment, useState} from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React,{Fragment} from 'react';
 function App() {
   return (
     <div className="App">
@@ -22,7 +22,7 @@ function App() {
 }
 const Home = () => (
   <Fragment>
-    Welcome ! hiwuefbkwenfkwje
+    <h1>Welcome!</h1>
   </Fragment>
   );
 

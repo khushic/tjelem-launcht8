@@ -6,7 +6,8 @@ import Description from "@material-ui/icons/Description"
 import Location from "@material-ui/icons/LocationOn"
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { makeStyles } from '@material-ui/core/styles';
-
+import ClockIcon from '@material-ui/icons/AccessTime'
+import moment from "moment"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#02075d",
@@ -21,6 +22,7 @@ export default function AddEvent({setEvents}) {
   const [newdate, setDate] = useState("");
   const [newdescription, setDescription] = useState("");
   const [newlocation, setLocation] = useState("");
+  const [time, setTime] = useState("")
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,13 +45,21 @@ const updateData = () =>{
 }
 
 
-
 const addEvent = () =>{
+    if (time !== ""){
+        let temp = newdate;
+        let addon = moment(time, 'hh:mm a').format('HH:mm');
+        temp += "T"
+        temp += addon
+        setDate(temp);
+        setTime("")
+    }
   const newEvent = {
     title: newtitle,
     description:  newdescription,
     location: newlocation,
-    date: newdate,
+    start: newdate,
+    time: time
   }
   axios.post("http://localhost:8000/events/add", newEvent)
   .then(response => {
@@ -75,6 +85,9 @@ const handleChange = (prop) => (e) =>{
       if ('location' === prop){
         setLocation(e.target.value)
       }
+      if ('time' === prop){
+        setTime(e.target.value)
+      }
 }
 
   return (
@@ -84,11 +97,13 @@ const handleChange = (prop) => (e) =>{
         <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title">Add Event</DialogTitle>
         <DialogContent>
           <div style={{ marginLeft:30,marginRight:40}}> Title: <TextField  style={{width:350}}  onChange={handleChange('title')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><Description style={{marginTop:19}}></Description> <TextField style={{marginLeft:15, width:350}} label="Description" onChange={handleChange('description')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> <TextField style={{marginLeft:15}} label="YYYY-MM-DD"  onChange={handleChange('date')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}> <Location style={{marginTop:19}}></Location> <TextField label="Location" style={{marginLeft:15}} onChange={handleChange('location')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> <TextField style={{marginLeft:15}} label="YYYY-MM-DD"  onChange={handleChange('date')}/>
+          <ClockIcon style={{marginLeft:10}}></ClockIcon><TextField style={{marginLeft:10, width:130}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><Description style={{marginTop:19}}></Description> <TextField style={{marginLeft:15, width:341}} label="Description" onChange={handleChange('description')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}> <Location style={{marginTop:19}}></Location> <TextField label="Location" style={{marginLeft:15, width: 341}} onChange={handleChange('location')}/></div>
         </DialogContent>
         <DialogActions>
+   
           <Button className={classes.addbutton} style={{marginRight:300, marginBottom:10, marginTop:10, marginLeft:10}} onClick={handleClose} color="primary">
             Cancel
           </Button>

@@ -3,8 +3,6 @@ const app = express();
 const port = 8000;
 const cors = require('cors')
 const db = require('./firebase')
-const axios = require('axios');
-const firestore = require('firebase-admin')
 
 app.use(express.json());
 app.use(cors({origin : true}))
@@ -26,25 +24,28 @@ app.get('/events/get', async (req, res)=> {
 })
 
 app.post("/events/add", async (req, res)=>{
-  const {title , description, location, date} = req.body;
+  const {title , description, location, start, time} = req.body;
   console.log(description)
   const resp = await db.collection("events").add({
       title,
       description,
       location,
-      date
+      start,
+      time
   });
   console.log("added document with id: ", resp.id)
 })
 app.put("/events/edit", async (req, res)=>{
-  const {title , description, location, date, id} = req.body;
+  const {title , description, location, start, id, time} = req.body;
   console.log("edited",id)
+  console.log(start)
   const change = db.collection('events').doc(id);
   const resp = await change.update({
     title,
     description,
     location,
-    date});
+    time,
+    start});
 })
 
 app.delete("/events/delete", async (req, res)=>{

@@ -3,8 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"; // needed
 import listPlugin from '@fullcalendar/list';
-import axios from "axios";
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField , Box} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle , Box} from "@material-ui/core";
 import AddEvent from "./AddEvent"
 import Clock from "@material-ui/icons/Event"
 import Description from "@material-ui/icons/Description"
@@ -14,7 +13,6 @@ import EditEvent from "./EditEvent"
 import { makeStyles } from '@material-ui/core/styles';
 import EditButton from '@material-ui/icons/Edit'
 import timeGridPlugin from '@fullcalendar/timegrid';
-import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     addbutton: {
@@ -33,6 +31,7 @@ export default function Library() {
   const [editedDate, setEditedDate] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedLocation, setEditedLocation] = useState("");
+  const [editedTime, setEditedTime] = useState("");
   const [date, setDate] = useState('');
 
 
@@ -59,9 +58,8 @@ export default function Library() {
 }
 const getDate = (format) =>{
   const thedate = new Date(format);
-  const another = thedate.toUTCString();
-  const localtime = new Date(another)
-  return another
+  const relevant = thedate.toUTCString();
+  return relevant.slice(0,17)
 }
 
 const changeEditState = (date, title, description, location) =>{
@@ -72,15 +70,19 @@ const changeEditState = (date, title, description, location) =>{
         setEditedDescription(description);
         setEditedLocation(location)
     } else {
-        // changeData(book.id)
+    
         setEditState(false);
     }
 }
-
-// const convertTime =(time) =>{
-//     const date = new Date(time *1000);
-//     return date.toString();
-// }
+const time = (each) =>{
+  if (each.extendedProps.time === ""){
+    return "All Day"
+  } 
+  if (each.extendedProps.time !== undefined){
+    return each.extendedProps.time
+  } 
+  return "All Day"
+}
 
 
   return (
@@ -92,13 +94,14 @@ const changeEditState = (date, title, description, location) =>{
 <FullCalendar 
         plugins={[ dayGridPlugin, interactionPlugin, listPlugin, timeGridPlugin ]}
         initialView="dayGridMonth"
-        height={950}
+        height={970}
         headerToolbar={{
           left: 'prev,next',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-        }} 
-        // dateClick={AddEvent}
+        }}
+        handleWindowResize={true}
+        aspectRatio={1.35}
         selectable={true}
         editable={true}
         events={events}
@@ -120,11 +123,13 @@ const changeEditState = (date, title, description, location) =>{
 
       { editState ? event !== null &&  
       <EditEvent
+      setEditedTime={setEditedTime}
       setEditState={setEditState}
       setEditedDate={setEditedDate}
       setEditedLocation={setEditedLocation}
       setEditedTitle={setEditedTitle}
       setEditedDescription={setEditedDescription}
+      editedTime={editedTime}
       editedDate={editedDate}
       editedDescription={editedDescription}
       editedLocation={editedLocation}
@@ -137,7 +142,7 @@ const changeEditState = (date, title, description, location) =>{
         <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:25}}>{event.title}</span></DialogTitle>
         <DialogContent> 
           <Box border={1} borderColor="gray"> 
-          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> {getDate(date.start)}</div>
+          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> {getDate(date.start)}- {time(event)}</div>
           <div style={{ marginLeft:30,marginRight:30}}><Description style={{marginTop:21}}></Description> {event.extendedProps.description}</div>
   
           <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <Location style={{marginTop:19}}></Location>{event.extendedProps.location} </div></Box>
