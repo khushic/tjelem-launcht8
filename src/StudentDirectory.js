@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from "react";
-import "./Directory.css";
-// import PropTypes from "prop-types";
+import "./StudentDirectory.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -25,7 +24,7 @@ import moment from "moment";
 
 moment().format();
 
-const Directory = ({ students }) => {
+const StudentDirectory = ({ students, setStudents }) => {
   const useRowStyles = makeStyles({
     root: {
       "& > *": {
@@ -114,7 +113,7 @@ const Directory = ({ students }) => {
     // e.preventDefault();
     // console.log(bookInfo.title, ", ", bookInfo.authors[0]);
 
-    console.log(id);
+    // console.log(id);
     let json = {
       id: id,
     };
@@ -125,7 +124,9 @@ const Directory = ({ students }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(json),
-    }).then((resp) => resp.json());
+    })
+      .then((resp) => resp.json())
+      .then((resp) => setStudents(resp));
   };
 
   //   const handleAdd = () => {};
@@ -145,17 +146,171 @@ const Directory = ({ students }) => {
     };
     let url = new URL("http://localhost:8000/student/directory/add");
 
-    // console.log(JSON.stringify(data));
-    // console.log(JSON.parse(JSON.stringify(data)));
-
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((resp) => resp.json());
+    })
+      .then((resp) => resp.json())
+      .then((resp) => setStudents(resp));
+    handleClose();
   };
+
+  function EditModal({ row }) {
+    const [edit, setEdit] = useState(false);
+    const handleEditOpen = () => {
+      setEdit(true);
+    };
+    const handleEditClose = () => {
+      setEdit(false);
+    };
+
+    const [editedID, setEditedID] = useState(row.schoolID);
+    const [editedLastName, setEditedLastName] = useState(row.lastName);
+    const [editedFirstName, setEditedFirstName] = useState(row.firstName);
+    const [editedGrade, setEditedGrade] = useState(row.grade);
+    const [editedGender, setEditedGender] = useState(row.gender);
+    const [editedBirthday, setEditedBirthday] = useState(row.birthday);
+    const [editedAddress, setEditedAddress] = useState(row.address);
+    const [editedParents, setEditedParents] = useState(row.parentNames);
+
+    // console.log(row);
+    // console.log(typeof editedBirthday);
+    // console.log(editedParents);
+    // console.log(moment().format(editedBirthday, "yyyy-MM-dd"));
+
+    const handleEdit = (e, id) => {
+      e.preventDefault();
+      // let data = {
+      //   student_id: document.getElementById("editID").value,
+      //   last_name: document.getElementById("editLastName").value,
+      //   first_name: document.getElementById("editFirstName").value,
+      //   grade: parseInt(document.getElementById("editGrade").value),
+      //   gender: document.getElementById("editGender").value,
+      //   birthday: new Date(document.getElementById("editBirthday").value),
+      //   parent_names: [document.getElementById("editParents").value],
+      //   address: document.getElementById("editAddress").value,
+      //   class_grade: -1,
+      //   id: id,
+      // };
+      let data = {
+        student_id: editedID,
+        last_name: editedLastName,
+        first_name: editedFirstName,
+        grade: editedGrade,
+        gender: editedGender,
+        birthday: editedBirthday,
+        parent_names: editedParents,
+        address: editedAddress,
+        class_grade: -1,
+        id: id,
+      };
+
+      // console.log(data);
+      let url = new URL("http://localhost:8000/student/directory/edit");
+
+      fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => setStudents(resp));
+      handleClose();
+    };
+
+    return (
+      <div>
+        <Button id={row.id} onClick={handleEditOpen}>
+          <EditIcon />
+        </Button>
+        <Modal
+          open={edit}
+          onClose={handleEditClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div style={modalStyle} className={classes.paper}>
+            <h2 id="simple-modal-title">Edit this Student</h2>
+            <form
+              id="simple-modal-description"
+              className="student-add-form"
+              onSubmit={(e) => handleEdit(e, row.id)}
+            >
+              {/* {console.log(row.id)} */}
+              <p>Student ID</p>
+              <TextField
+                required
+                id="editID"
+                value={editedID}
+                onChange={(e) => setEditedID(e.target.value)}
+              />
+              <p>Last Name</p>
+              <TextField
+                required
+                id="editLastName"
+                value={editedLastName}
+                onChange={(e) => setEditedLastName(e.target.value)}
+              />
+              <p>First Name</p>
+              <TextField
+                required
+                id="editFirstName"
+                value={editedFirstName}
+                onChange={(e) => setEditedFirstName(e.target.value)}
+              />
+              <p>Grade</p>
+              <TextField
+                required
+                id="editGrade"
+                value={parseInt(editedGrade)}
+                onChange={(e) => setEditedGrade(e.target.value)}
+              />
+              <p>Gender</p>
+              <TextField
+                required
+                id="editGender"
+                value={editedGender}
+                onChange={(e) => setEditedGender(e.target.value)}
+              />
+              <p>Birthday</p>
+              <TextField
+                type="date"
+                id="editBirthday"
+                required
+                //   placeholder="MM/DD/YYYY"
+                value={editedBirthday}
+                onChange={(e) => setEditedBirthday(e.target.value)}
+              />
+              {/* {console.log(new Date(editedBirthday))} */}
+              <p>Address</p>
+              <TextField
+                required
+                id="editAddress"
+                value={editedAddress}
+                onChange={(e) => setEditedAddress(e.target.value)}
+              />
+              <p>Parent/Guardian(s) (separate with comma)</p>
+              <TextField
+                required
+                id="editParents"
+                value={editedParents}
+                onChange={(e) => setEditedParents(e.target.value)}
+              />
+              <br />
+              <Button type="submit" variant="contained" color="primary">
+                Edit Student
+              </Button>
+            </form>
+          </div>
+        </Modal>
+      </div>
+    );
+  }
 
   function Row({ row }) {
     const [open, setOpen] = useState(false);
@@ -179,6 +334,25 @@ const Directory = ({ students }) => {
               : ""}
           </TableCell>
           <TableCell align="right">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              {/* <div> */}
+              {/* <Button id={row.id} onClick={handleEditOpen}>
+                  <EditIcon />
+                </Button> */}
+              <EditModal row={row} />
+              {/* </div> */}
+              <Button onClick={() => handleDelete(row.id)}>
+                <DeleteIcon />
+              </Button>
+            </div>
+          </TableCell>
+
+          <TableCell align="right">
             <IconButton
               aria-label="expand row"
               size="small"
@@ -189,21 +363,13 @@ const Directory = ({ students }) => {
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box margin={1}>
                 <div className="directory-dropdown">
                   <Typography variant="h6" gutterBottom component="div">
                     Additional Information
                   </Typography>
-                  <div style={{ display: "flex" }}>
-                    <Button>
-                      <EditIcon onClick={() => console.log("editing")} />
-                    </Button>
-                    <Button onClick={() => handleDelete(row.id)}>
-                      <DeleteIcon />
-                    </Button>
-                  </div>
                 </div>
                 <Table>
                   <TableHead>
@@ -290,6 +456,9 @@ const Directory = ({ students }) => {
               <TableCell align="right">Grade</TableCell>
               <TableCell align="right">Gender</TableCell>
               <TableCell align="right">Birthday</TableCell>
+              <TableCell align="right" style={{ paddingRight: "50px" }}>
+                Modify Cell
+              </TableCell>
               <TableCell align="right" />
             </TableRow>
           </TableHead>
@@ -304,4 +473,4 @@ const Directory = ({ students }) => {
   );
 };
 
-export default Directory;
+export default StudentDirectory;

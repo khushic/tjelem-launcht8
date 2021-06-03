@@ -1,5 +1,5 @@
 import "./App.css";
-import Directory from "./Directory";
+import StudentDirectory from "./StudentDirectory";
 import React, { useState, useEffect } from "react";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <Directory students={students} />
+      <StudentDirectory students={students} setStudents={setStudents} />
     </div>
   );
 }
