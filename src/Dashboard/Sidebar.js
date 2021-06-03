@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 import TJlogo from "./TJlogo.png"
 import grey from '@material-ui/core/colors/grey';
 
-const drawerWidth = 250;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,14 +33,25 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: "#02075d",
+    fontSize:'2.5em',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
+  },bottomPush: {
+    position: "fixed",
+    bottom: 0,
+    textAlign: "center",
+    paddingBottom: 10,
+    height: 40,
+    background: "#02075d",
+    width: "100%",
+
+},
   appBarShift: {
     marginLeft: drawerWidth,
+    fontSize:'2.5em',
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -71,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerClose: {
     background: "#02075d",
+    color: "white",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -93,6 +105,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  listItemText:{
+    fontSize:'1.5em',
+  }
 }));
 
 export default function MiniDrawer() {
@@ -157,21 +172,27 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: grey[50] }}/> : <ChevronLeftIcon style={{ color: grey[50] }}/>}
           </IconButton>
         </div>
-        {open ? <img style={{width:175, marginLeft:30, marginBottom: 25}} src={TJlogo}></img> : ""}
+        {open ? <img style={{width:190, marginLeft:45, marginBottom: 25}} src={TJlogo}></img> : ""}
         <Divider />
-        <List>
-            <ListItem onClick={onItemClick('Dashboard')} button component={Link} to="/" button key="Dashboard"><ListItemIcon><HomeIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="Dashboard"></ListItemText></ListItem>
-            <ListItem onClick={onItemClick('All Classes')} button component={Link} to="/AllClasses" button key="all Classes"><ListItemIcon><SchoolIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="All Classes"></ListItemText></ListItem>
-            <ListItem onClick={onItemClick('Class Page')} button component={Link} to="/ClassPage" button key="Class Page"><ListItemIcon><ClassIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="Class Page"></ListItemText></ListItem>
-            <ListItem onClick={onItemClick('Student Directory')} button component={Link} to="/StudentDirectory" button key="Student Directory"><ListItemIcon><PeopleIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="Student Directory"></ListItemText></ListItem>
-            <ListItem onClick={onItemClick('Teacher Directory')} button component={Link} to="/TeacherDirectory" button key="Teacher Directory"><ListItemIcon><PermContactCalendarIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="Teacher Directory"></ListItemText></ListItem>
-            <ListItem onClick={onItemClick('School Calendar')} button component={Link} to="/Calendar" button key="School Calendar"><ListItemIcon><DateRangeIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText primary="School Calendar"></ListItemText></ListItem>
+        <List >
+            <ListItem onClick={onItemClick('Dashboard')} button component={Link} to="/" button key="Dashboard"><ListItemIcon><HomeIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}} primary="Dashboard"></ListItemText></ListItem>
+            <ListItem onClick={onItemClick('All Classes')} button component={Link} to="/AllClasses" button key="all Classes"><ListItemIcon><SchoolIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="All Classes"></ListItemText></ListItem>
+            <ListItem onClick={onItemClick('Class Page')} button component={Link} to="/ClassPage" button key="Class Page"><ListItemIcon><ClassIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="Class Page"></ListItemText></ListItem>
+            <ListItem onClick={onItemClick('Student Directory')} button component={Link} to="/StudentDirectory" button key="Student Directory"><ListItemIcon><PeopleIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="Student Directory"></ListItemText></ListItem>
+            <ListItem onClick={onItemClick('Teacher Directory')} button component={Link} to="/TeacherDirectory" button key="Teacher Directory"><ListItemIcon><PermContactCalendarIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="Teacher Directory"></ListItemText></ListItem>
+            <ListItem onClick={onItemClick('School Calendar')} button component={Link} to="/Calendar" button key="School Calendar"><ListItemIcon><DateRangeIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="School Calendar"></ListItemText></ListItem>
         </List>
         <Divider />
+        <div className={classes.bottomPush} style={{display:"flex"}}>
+        <Typography style={{marginLeft: 30, marginTop: 7}}>Thomas Jefferson Elementary School </Typography>
+    <Typography style={{marginLeft: 1350, marginTop: 7}}> Team 8; Updated June 3rd, 2021</Typography>
+
+</div>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
       </main>
+      
     </div>
   );
 }

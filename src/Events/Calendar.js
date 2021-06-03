@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"; // needed
 import listPlugin from '@fullcalendar/list';
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle , Box} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle , Box, Divider, Typography} from "@material-ui/core";
 import AddEvent from "./AddEvent"
 import Clock from "@material-ui/icons/Event"
 import Description from "@material-ui/icons/Description"
@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#02075d",
       color: "white"
+    },
+    root: {
+      color: "yellow",
+      margin: 0,
+      padding: theme.spacing(3)
     },
   }));
 
@@ -86,7 +91,7 @@ const time = (each) =>{
 
 
   return (
-    <div style={{marginLeft:390, textAlign:"center",  alignItems:"center", justifyContent:"center", width:1300}}>
+    <div style={{marginLeft:390, marginBottom:100, textAlign:"center",  alignItems:"center", justifyContent:"center", width:1300}}>
       <h2 style={{marginLeft: 800}}> {Loading()}</h2>
       <AddEvent
       setEvents={setEvents}>
@@ -138,25 +143,30 @@ const time = (each) =>{
       open={open}
       setEvents={setEvents}
       id={event.publicId}>
-      </EditEvent> :  event !== null &&  <Dialog color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      </EditEvent> :  event !== null &&  <Dialog className={classes.root}  color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:25}}>{event.title}</span></DialogTitle>
         <DialogContent> 
-          <Box border={1} borderColor="gray"> 
-          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> {getDate(date.start)}- {time(event)}</div>
-          <div style={{ marginLeft:30,marginRight:30}}><Description style={{marginTop:21}}></Description> {event.extendedProps.description}</div>
-  
-          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <Location style={{marginTop:19}}></Location>{event.extendedProps.location} </div></Box>
+          <Box border={1} borderColor="#778899"> 
+          <div style={{ marginLeft:30,marginRight:30}}>
+            <h2>Date and Time</h2> <Clock style={{ marginLeft:20}}></Clock><span style={{fontSize:17, marginLeft:12}}>{getDate(date.start)}- {time(event)}</span></div>
+            <Divider style={{marginTop:10}}></Divider>
+          <div style={{ marginLeft:30,marginRight:30}}>
+          <h2>Description</h2>
+          <span style={{alignItems:"flex-end"}}><Description style={{ marginLeft:20}}></Description> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.description}</span></span></div>
+          <Divider style={{marginTop:10}}></Divider>
+          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <h2>Location</h2><Location style={{marginLeft:20}}></Location> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.location} </span></div></Box>
         </DialogContent> 
         <DialogActions>
+        <Button style={{marginRight:340}} className={classes.addbutton} onClick={handleClose} color="primary">
+            Cancel
+          </Button>
             <DeleteEvent
             setOpen={setOpen}
             setEvents={setEvents}
             id={event.publicId}></DeleteEvent>
-            <Button className={classes.addbutton} color="primary"  style={{marginRight:342, marginTop:10}} onClick={()=>changeEditState(getDate(date.start), event.title, event.extendedProps.description, event.extendedProps.location)}>
+            <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:10}} onClick={()=>changeEditState(getDate(date.start), event.title, event.extendedProps.description, event.extendedProps.location)}>
               <EditButton></EditButton></Button>
-          <Button className={classes.addbutton} onClick={handleClose} color="primary">
-            Cancel
-          </Button>
+    
         </DialogActions>
       </Dialog>}
   

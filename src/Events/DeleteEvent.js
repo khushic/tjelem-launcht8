@@ -40,7 +40,7 @@ export default function DeleteEvent({id,setEvents, setOpen}) {
         }
 
     return(<span>
-        <Button className={classes.addbutton} color="primary"  style={{marginRight:10, marginTop:10}} onClick={()=>deleteBook(id)}><DeleteButton></DeleteButton></Button>
+        <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10}} onClick={()=>deleteBook(id)}><DeleteButton></DeleteButton></Button>
         
     </span>
         

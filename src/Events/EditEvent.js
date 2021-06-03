@@ -1,11 +1,12 @@
 import axios from "axios";
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField , Box} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField , Box, Divider} from "@material-ui/core";
 import Clock from "@material-ui/icons/Event"
 import Description from "@material-ui/icons/Description"
 import Location from "@material-ui/icons/LocationOn"
 import { makeStyles } from '@material-ui/core/styles';
 import ClockIcon from '@material-ui/icons/AccessTime'
 import moment from "moment"
+import Close from "@material-ui/icons/Close"
 
 const useStyles = makeStyles((theme) => ({
     addbutton: {
@@ -87,24 +88,25 @@ const useStyles = makeStyles((theme) => ({
      return (
          <div>
              <Dialog fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:25}}>
-        <TextField style={{width:300}} label="Title" onChange={handleChange('title')} value={editedTitle}></TextField></span></DialogTitle>
+        <DialogTitle style={{display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:16}}><h2 style={{marginLeft:200}}>Edit Event <Button  style={{marginLeft:160}} onClick={handleClose} color="primary">
+            <Close></Close>
+          </Button></h2></span>
+
+          </DialogTitle>
         <DialogContent> 
-          <Box border={1} borderColor="gray">
-          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19, marginRight:7}}></Clock>
-          <TextField style={{width:200, marginTop:10}} label="Date (YYYY-MM-DD)" onChange={handleChange('date')} value={editedDate}></TextField>
-          <ClockIcon style={{marginLeft:10, marginTop:30}}></ClockIcon><TextField style={{marginLeft:10, width:155, marginTop:10}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
-          <div style={{ marginTop:10, marginLeft:30,marginRight:30}}><Description style={{marginTop:21, marginRight:7}}></Description> 
-          <TextField multiline rowsMax={2} style={{width:400}} label="Description" onChange={handleChange('description')} value={editedDescription}></TextField></div>
-          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <Location style={{marginTop:19, marginRight:7}}></Location>
-          <TextField style={{width:400, marginTop:10}} label="Location" onChange={handleChange('location')} value={editedLocation}></TextField></div></Box>
+        <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Title</h2>
+          <TextField style={{width:400}}  onChange={handleChange('title')} value={editedTitle}></TextField></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Date and Time</h2> <Clock style={{ marginRight:7, marginTop:20}}></Clock>
+          <TextField style={{width:200}} label="Date (YYYY-MM-DD)" onChange={handleChange('date')} value={editedDate}></TextField>
+          <ClockIcon style={{marginLeft:10}}></ClockIcon><TextField style={{marginLeft:10, width:155}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
+          <div style={{ marginTop:10, marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Description</h2><Description style={{marginTop:6, marginRight:7}}></Description> 
+          <TextField multiline rowsMax={2} style={{width:400}}  onChange={handleChange('description')} value={editedDescription}></TextField></div>
+          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}><h2 style={{fontWeight: "normal"}}>Location</h2> <Location style={{marginTop:6, marginRight:7}}></Location>
+          <TextField style={{width:400}} onChange={handleChange('location')} value={editedLocation}></TextField></div>
         </DialogContent> 
         <DialogActions>
             
-            <Button className={classes.addbutton} style={{marginRight:20}} color="primary" onClick={()=>changeData(id)}>Done</Button>
-          <Button className={classes.addbutton}  onClick={handleClose} color="primary">
-            Cancel
-          </Button>
+            <Button className={classes.addbutton} style={{marginRight:20, width:550, marginBottom:10}} color="primary" onClick={()=>changeData(id)}>Edit event</Button>
         </DialogActions>
       </Dialog>
          </div>

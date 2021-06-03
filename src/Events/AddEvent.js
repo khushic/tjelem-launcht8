@@ -7,6 +7,7 @@ import Location from "@material-ui/icons/LocationOn"
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import ClockIcon from '@material-ui/icons/AccessTime'
+import Close from "@material-ui/icons/Close"
 import moment from "moment"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
@@ -93,21 +94,21 @@ const handleChange = (prop) => (e) =>{
   return (
     <div style={{ marginRight:250}}>
       <Button className={classes.addbutton} onClick={handleClickOpen} style={{marginLeft:1340, width:100}}> Add <AddCircleIcon style={{marginLeft:7}} variant="outlined"></AddCircleIcon></Button>
-      <Dialog  open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title">Add Event</DialogTitle>
+      <Dialog  open={open} onClose={handleClose} aria-labelledby="form-dialog-title"> 
+      
+        <DialogTitle style={{ display:"flex"}} id="form-dialog-title"><span style={{fontSize:25, marginLeft:190,fontWeight:"bold"}}>Add Event</span><Button style={{marginLeft:125}} onClick={handleClose} color="primary">
+            <Close></Close>
+          </Button></DialogTitle>
         <DialogContent>
-          <div style={{ marginLeft:30,marginRight:40}}> Title: <TextField  style={{width:350}}  onChange={handleChange('title')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><Clock style={{marginTop:19}}></Clock> <TextField style={{marginLeft:15}} label="YYYY-MM-DD"  onChange={handleChange('date')}/>
-          <ClockIcon style={{marginLeft:10}}></ClockIcon><TextField style={{marginLeft:10, width:130}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><Description style={{marginTop:19}}></Description> <TextField style={{marginLeft:15, width:341}} label="Description" onChange={handleChange('description')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}> <Location style={{marginTop:19}}></Location> <TextField label="Location" style={{marginLeft:15, width: 341}} onChange={handleChange('location')}/></div>
+          <div style={{ marginLeft:30,marginRight:40}}> <h2 style={{fontWeight: "normal"}}>Title</h2> <TextField  style={{width:435}}  onChange={handleChange('title')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Date and Time</h2> <Clock style={{marginTop:19}}></Clock> <TextField style={{marginLeft:15}} label="YYYY-MM-DD"  onChange={handleChange('date')}/>
+          <ClockIcon style={{marginLeft:40}}></ClockIcon><TextField style={{marginLeft:10, width:150}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}> Description</h2> <Description style={{marginTop:10}}></Description> <TextField style={{marginLeft:15, width:400}}  onChange={handleChange('description')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal"}}>Location</h2>  <Location style={{marginTop:10}}></Location> <TextField  style={{marginLeft:15, width: 400}} onChange={handleChange('location')}/></div>
         </DialogContent>
         <DialogActions>
    
-          <Button className={classes.addbutton} style={{marginRight:300, marginBottom:10, marginTop:10, marginLeft:10}} onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button className={classes.addbutton} style={{marginRight:10}} onClick={addEvent} color="primary">
+          <Button className={classes.addbutton} style={{marginRight:17, width:500, marginBottom:10}} onClick={addEvent} color="primary">
             Add Event
           </Button>
         </DialogActions>
