@@ -47,7 +47,7 @@ function App() {
       <Sidebar></Sidebar>
         <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/AllClasses"><AllClasses /><Route/>
+        <Route path="/AllClasses"><AllClasses /></Route>
         <Route path="/ClassPage"  />
         <Route path="/StudentDirectory"><StudentDirectory students={students} setStudents={setStudents} /></Route>
         <Route path="/TeacherDirectory"><TeacherDirectory teachers={teachers} setTeachers={setTeachers} /></Route>
