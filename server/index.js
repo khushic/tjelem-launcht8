@@ -6,9 +6,43 @@ const db = require("./firebase");
 const axios = require("axios");
 
 db.settings({ignoreUndefinedProperties: true})
-
 app.use(express.json());
 app.use(cors());
+
+app.get("/class/directory", async (req, res) => {
+  const snapshot = await db.collection("classes").get();
+
+  let classList = [];
+
+  snapshot.forEach((doc) => {
+    classList.push({ ...doc.data(), id: doc.id });
+  });
+
+  res.send(classList);
+  // res.sendStatus(200);
+});
+
+app.post("/class/add", async (req, res) => {
+  const { grade_resource, students, teacher_id } = req.body;
+
+  const resp = await db.collection("classes").add({
+    grade_resource,
+    students,
+    teacher_id,
+  });
+
+  console.log("Added class with ID: ", resp.id);
+  res.sendStatus(200);
+});
+
+app.delete("/class/delete", async (req, res) => {
+  const { id } = req.body;
+  console.log(db.collection("classes").doc(id));
+
+  const resp = await db.collection("classes").doc(id).delete();
+  console.log(`Deleted element with id: ${id}`);
+  res.sendStatus(200);
+});
 
 app.get("/student/directory", async (req, res) => {
   const snapshot = await db.collection("students").get();
@@ -20,6 +54,23 @@ app.get("/student/directory", async (req, res) => {
   });
   res.send(studentList);
   // res.sendStatus(200);
+});
+
+app.get("/teacher/directory", async (req, res) => {
+  const snapshot = await db.collection("teachers").get();
+
+  let teacherList = [];
+
+  snapshot.forEach((doc) => {
+    teacherList.push({ ...doc.data(), id: doc.id });
+  });
+
+  res.send(teacherList);
+  // res.sendStatus(200);
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 app.delete("/student/directory/delete", async (req, res) => {
