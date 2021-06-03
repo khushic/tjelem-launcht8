@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.calender {
+  font-size: 14px;
+}
