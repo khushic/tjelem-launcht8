@@ -62,6 +62,22 @@ app.get("/classes/student_grade", async(req, res) => {
   });
 });
 
+app.get("/classes/get_all_students", async(req, res) => {
+  console.log("hi");
+  var class_id = req.query.class_id;
+  const students = await db.collection("students").get();
+  const student_list = [];
+  var classes = await db.collection("classes").doc(class_id).get();
+  console.log(classes.data());
+
+  students.forEach((b) => {
+    if(!classes.data().students.includes(b.id)){
+      student_list.push({ id: b.id, first_name: b.data().first_name, last_name: b.data().last_name });
+    }
+  });
+  res.send(student_list);
+});
+
 app.post("/classes/add_student", async(req, res) => {
   console.log(req.body);
   const {class_id, student_id} = req.body;
