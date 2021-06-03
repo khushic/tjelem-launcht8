@@ -19,7 +19,6 @@ function StudentGrades(props){
     });
   };
 
-
   const updateStudentInfo = () => {
     const url = new URL("http://localhost:5000/classes/student_grade");
     url.searchParams.append("student_id", props.student_id);
@@ -54,8 +53,8 @@ function StudentGrades(props){
   const updateGrade = () => {
     var e = document.getElementById("dropdown").value;
     const url = new URL("http://localhost:5000/classes/update_grades")
-    const data_body = { "class_id": props.class_id, "student_id": props.student_id };
-    axios.delete(url, {data: data_body})
+    const data = { "student_id": props.student_id, "new_grade": e };
+    axios.put(url, data)
     .then((resp) => {
       console.log(resp);
       return resp;
