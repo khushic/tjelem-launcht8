@@ -24,10 +24,17 @@ code {
   text-align: right;
 }
 
+.padding-all-classes{
+  margin-top: 8rem;
+  margin-bottom: 6rem;
+  overflow: scroll;
+}
+
 .padding-left{
   margin-left: 10rem;
   margin-right: 7rem;
   margin-top: 8rem;
+  margin-bottom: 6rem;
 }
 
 .teacher-name{
@@ -43,7 +50,7 @@ code {
   border-width: 1px!important;
   border-radius: 3px!important;
   margin-left: .25rem;
-  font-size: 1.25rem!important;
+  font-size: 1rem!important;
   padding: 0.5rem 1rem;
 }
 
