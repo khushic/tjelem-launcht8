@@ -41,8 +41,17 @@
   font-size: 14px;
 }
 
+.padding-directory{
+  margin-left: 7rem!important;
+  padding-right: 4rem!important;
+  padding-bottom: 6rem!important;
+  overflow: scroll;
+}
 
-
+.margin-left{
+  margin-top: -1rem;
+  overflow-x: hidden;
+}
 
 .poppins{
   font-family: 'Poppins', sans-serif!important;

@@ -87,7 +87,7 @@ export default function Home() {
     }, [])
 
     return (
-        <div>
+        <div style={{ overflow: 'none' }}>
             <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${mainFeaturedPost.image})` }}>
       {<img style={{ display: 'none' }} src={mainFeaturedPost.image} alt={mainFeaturedPost.imageText} />}
       <div className={classes.overlay} />
@@ -103,11 +103,11 @@ export default function Home() {
               {mainFeaturedPost.linkText}
             </Link> */}
           </div>
-     
-    
+
+
     </Paper>
     <div style={{display: "flex"}}>
-    
+
     <Box bgcolor="#e3ecff" boxShadow={4} border={1} borderRadius={80} style={{ height:140, marginLeft:400, width:140}}>
     <Button> <Link href="AllClasses">
         <div><SchoolIcon className={classes.icons}></SchoolIcon> <Typography className={classes.text} style={{marginTop: 40}} > All Classes</Typography></div></Link></Button>
@@ -131,7 +131,7 @@ export default function Home() {
     {/* <Box bgcolor="#02075D" style={{width:450, marginLeft:1000, marginBottom:100}}>
               Upcoming Schedule
           <div >
-    <FullCalendar 
+    <FullCalendar
         plugins={[ listPlugin ]}
         initialView="listWeek"
         height={250}
@@ -147,8 +147,7 @@ export default function Home() {
         color="#02075D"
       /></div></Box> */}
       </div>
-    
+
   </div>
     )
 }
-  

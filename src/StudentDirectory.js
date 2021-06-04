@@ -480,7 +480,7 @@ const StudentDirectory = ({ students, setStudents }) => {
   if (!students) return <h1>Loading</h1>;
 
   return (
-    <div className="container">
+    <div className="container padding-directory">
       <div
         className="header"
         style={{
