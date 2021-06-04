@@ -1,15 +1,15 @@
 import "./App.css";
-import "./index.css"
-import ClassPage from './components/ClassPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css";
+import ClassPage from "./components/ClassPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AllClasses from "./components/AllClasses";
 import StudentDirectory from "./StudentDirectory";
 import TeacherDirectory from "./TeacherDirectory";
 import React, { Fragment, useState, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Calendar from "./Events/Calendar"
-import Sidebar from "./Dashboard/Sidebar"
-import Banner from "./Dashboard/Banner"
+import Calendar from "./Events/Calendar";
+import Sidebar from "./Dashboard/Sidebar";
+import Banner from "./Dashboard/Banner";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -48,15 +48,24 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Sidebar></Sidebar>
+        <Sidebar></Sidebar>
         <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/AllClasses"><AllClasses /></Route>
-        <Route path="/ClassPage"><ClassPage /></Route>
-        <Route path="/StudentDirectory"><StudentDirectory students={students} setStudents={setStudents} /></Route>
-        <Route path="/TeacherDirectory"><TeacherDirectory teachers={teachers} setTeachers={setTeachers} /></Route>
-        <Route path="/Calendar"  component={Calendar} />
-       </Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/AllClasses">
+            <AllClasses />
+          </Route>
+          <Route
+            path="/ClassPage"
+            render={(props) => <ClassPage {...props} />}
+          />
+          <Route path="/StudentDirectory">
+            <StudentDirectory students={students} setStudents={setStudents} />
+          </Route>
+          <Route path="/TeacherDirectory">
+            <TeacherDirectory teachers={teachers} setTeachers={setTeachers} />
+          </Route>
+          <Route path="/Calendar" component={Calendar} />
+        </Switch>
       </Router>
     </div>
   );
@@ -66,6 +75,6 @@ const Home = () => (
     <h1>Welcome!</h1>
     <Banner></Banner>
   </Fragment>
-  );
+);
 
 export default App;
