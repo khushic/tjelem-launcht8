@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(0,0,0,.4)',
     },
     mainFeaturedPostContent: {
+    
       position: 'relative',
       padding: theme.spacing(3),
       [theme.breakpoints.up('md')]: {
@@ -70,9 +71,9 @@ export default function Home() {
     const[events, setEvents] = useState([]);
 
     const mainFeaturedPost = {
-      title: 'Welcome',
+      title: 'Positivity, Respect, Diversity, Education, and Comradery',
       description:
-        "Thomas Jefferson is an International Baccalaureate World School full of promising young students.",
+        "At Thomas Jefferson Elementary School, we are a diverse community of global citizens and lifelong learners that lead by example. We believe in the power of positivity, respect, and cooperation. We manifest our potential through confidence and work ethic.",
       image: pic,
       imgText: 'main image description',
       linkText: 'Start your search now…',
@@ -96,7 +97,7 @@ export default function Home() {
             <Typography className={classes.mainTitle} style={{marginTop:180}} component="h1" variant="h3" color="inherit" gutterBottom>
               {mainFeaturedPost.title}
             </Typography >
-            <Typography  variant="h5" color="inherit" paragraph>
+            <Typography style={{marginRight:120}} variant="h5" color="inherit" paragraph>
               {mainFeaturedPost.description}
             </Typography>
             {/* <Link variant="subtitle1" href="Search">
@@ -106,7 +107,7 @@ export default function Home() {
 
 
     </Paper>
-    <div style={{display: "flex"}}>
+    <div  style={{display: "flex"}}>
 
     <Box bgcolor="#e3ecff" boxShadow={4} border={1} borderRadius={80} style={{ height:140, marginLeft:400, width:140}}>
     <Button> <Link href="AllClasses">
