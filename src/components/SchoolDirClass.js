@@ -7,10 +7,12 @@ import {
   Modal,
   Typography,
 } from "@material-ui/core";
+import { Route, Redirect, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SchoolDirTeacher from "./SchoolDirTeacher";
 import SchoolDirStudent from "./SchoolDirStudent";
+import ClassPage from "./ClassPage";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
@@ -56,8 +58,12 @@ export default function SchoolDirClass() {
     });
   };
 
-  const editClass = (id) => {
-    console.log(id);
+  const [edit, setEdit] = useState(false);
+  const [class_id, setClass_id] = useState("");
+  const editClass = (classid) => {
+    setEdit(true);
+    setClass_id(classid);
+    console.log(classid);
   };
 
   function getModalStyle() {
@@ -96,7 +102,7 @@ export default function SchoolDirClass() {
   };
 
   return (
-    <div style={{ marginLeft: "15%", marginRight: "15%" }}>
+    <div style={{ marginTop: "15vh", marginLeft: "15%", marginRight: "15%" }}>
       <div id="main">
         {classes ? (
           classes.map((c) => (
@@ -124,10 +130,20 @@ export default function SchoolDirClass() {
                     marginLeft: "62.5%",
                     marginRight: "0",
                   }}
-                  href="http://localhost:3000/ClassPage"
                 >
                   <CreateIcon />
                 </Button>
+
+                {edit ? (
+                  <div>
+                    <Redirect
+                      to={{
+                        pathname: "/ClassPage",
+                        state: { classid: class_id },
+                      }}
+                    />
+                  </div>
+                ) : null}
                 <Button
                   variant="contained"
                   onClick={(event) => {
