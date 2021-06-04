@@ -87,7 +87,7 @@ export default function Home() {
     }, [])
 
     return (
-        <div style={{ overflow: 'none' }}>
+        <div style={{ overflow: 'none', margin: "0rem 0rem 12rem" }}>
             <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${mainFeaturedPost.image})` }}>
       {<img style={{ display: 'none' }} src={mainFeaturedPost.image} alt={mainFeaturedPost.imageText} />}
       <div className={classes.overlay} />
@@ -106,9 +106,9 @@ export default function Home() {
 
 
     </Paper>
-    <div style={{display: "flex"}}>
+    <div style={{display: "flex", alignItems: "center"}}>
 
-    <Box bgcolor="#e3ecff" boxShadow={4} border={1} borderRadius={80} style={{ height:140, marginLeft:400, width:140}}>
+    <Box bgcolor="#e3ecff" boxShadow={4} border={1} borderRadius={80} style={{ height:140, marginLeft:130, width:140}}>
     <Button> <Link href="AllClasses">
         <div><SchoolIcon className={classes.icons}></SchoolIcon> <Typography className={classes.text} style={{marginTop: 40}} > All Classes</Typography></div></Link></Button>
     </Box>

@@ -330,12 +330,21 @@ export default function MiniDrawer() {
         <Divider />
         <div
           className={classes.bottomPush}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: "inline", float: "right", height:"max-content", width: "100%", marginRight:"0" }}
         >
-          <Typography style={{ marginLeft: 30, marginTop: 7 }}>
-            Thomas Jefferson Elementary School
+          <Typography style={{ marginLeft: 85, marginRight: 50, marginTop: 15, display: "inline", float:"left", width: "28%"  }}>
+            Principal Camille Cooper<br />
+            camillecooper@tjes.edu<br />
+           434-293-4402 ext 100 <br/>
           </Typography>
-          <Typography style={{ marginRight: 30, marginTop: 7 }}>
+          <Typography style={{ marginRight: 50, marginTop: 15, display: "inline", float:"left", width: "28%"   }}>
+            1609 University Ave,<br />
+            Charlottesville, VA 22903 <br />
+            434-293-4402 <br/>
+            contactus@tjes.edu
+          </Typography>
+          <Typography style={{ marginRight: 0, marginTop: 15, display: "inline", float:"left", width: "27%"   }}>
+            Thomas Jefferson Elementary School <br/>
             Team 8; Updated June 4th, 2021
           </Typography>
         </div>
