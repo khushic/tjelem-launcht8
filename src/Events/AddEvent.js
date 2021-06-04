@@ -11,8 +11,15 @@ import Close from "@material-ui/icons/Close"
 import moment from "moment"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
-      background: "#02075d",
-      color: "white"
+      background: "#ECD100",
+      color: "white",
+      fontWeight: "bold",
+    },
+    addbutton2: {
+      background: "#ECD100",
+      color: "white",
+      borderRadius: 20,
+      boxShadow: 10,
     },
   }));
   
@@ -49,17 +56,17 @@ const updateData = () =>{
 const addEvent = () =>{
   let temp = newdate;
     if (time !== ""){
-        let addon = moment(time, 'hh:mm a').format('HH:mm');
         temp += "T"
-        temp += addon
+        temp += time
         setTime("")
     }
+  const converted = moment(time, 'HH:mm').format('hh:mm a');
   const newEvent = {
     title: newtitle,
     description:  newdescription,
     location: newlocation,
     start: temp,
-    time: time,
+    time: converted,
     displaydate: newdate
   }
   axios.post("http://localhost:8000/events/add", newEvent)
@@ -93,18 +100,17 @@ const handleChange = (prop) => (e) =>{
 
   return (
     <div style={{ marginRight:250}}>
-      <Button className={classes.addbutton} onClick={handleClickOpen} style={{marginLeft:1340, width:100}}> Add <AddCircleIcon style={{marginLeft:7}} variant="outlined"></AddCircleIcon></Button>
+      <Button className={classes.addbutton2} onClick={handleClickOpen} style={{marginLeft:1340, width:100}}> Add <AddCircleIcon style={{marginLeft:7}} variant="outlined"></AddCircleIcon></Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title"> 
-      
-        <DialogTitle style={{ display:"flex"}} id="form-dialog-title"><span style={{fontSize:26, marginLeft:180,fontWeight:"bold"}}>Add Event</span><Button style={{marginLeft:125}} onClick={handleClose} color="primary">
+        <DialogTitle style={{ display:"flex"}} id="form-dialog-title"><span style={{fontSize:30, marginLeft:180,fontWeight:"bold", fontFamily: "Poppins"}}>Add Event</span><Button style={{marginLeft:125}} onClick={handleClose} color="primary">
             <Close></Close>
           </Button></DialogTitle>
         <DialogContent>
-          <div style={{ marginLeft:30,marginRight:40}}> <h2 style={{fontWeight: "normal", fontSize:21}}>Title</h2> <TextField  style={{width:435}}  onChange={handleChange('title')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}>Date and Time</h2> <Clock style={{marginTop:19}}></Clock> <TextField style={{marginLeft:15}} label="YYYY-MM-DD"  onChange={handleChange('date')}/>
-          <ClockIcon style={{marginLeft:40}}></ClockIcon><TextField style={{marginLeft:10, width:150}} label="HH:MM am/pm"  onChange={handleChange('time')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}> Description</h2> <Description style={{marginTop:10}}></Description> <TextField style={{marginLeft:15, width:400}}  onChange={handleChange('description')}/></div>
-          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}>Location</h2>  <Location style={{marginTop:10}}></Location> <TextField  style={{marginLeft:15, width: 400}} onChange={handleChange('location')}/></div>
+          <div style={{ marginLeft:30,marginRight:40}}> <h2 style={{fontWeight: "normal", fontSize:21}}>Title</h2> <TextField  style={{width:435, marginTop:20}}  onChange={handleChange('title')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}>Date and Time</h2> <TextField style={{ width:435, marginTop:9}} type="date"  onChange={handleChange('date')}/>
+          <div><TextField style={{ width:150, marginTop:19}} type="time" onChange={handleChange('time')}/></div></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}> Description</h2>  <TextField style={{ width:435}}  onChange={handleChange('description')}/></div>
+          <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}>Location</h2>   <TextField  style={{width: 435}} onChange={handleChange('location')}/></div>
         </DialogContent>
         <DialogActions>
    
