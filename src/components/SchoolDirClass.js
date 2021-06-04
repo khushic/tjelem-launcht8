@@ -11,6 +11,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SchoolDirTeacher from "./SchoolDirTeacher";
 import SchoolDirStudent from "./SchoolDirStudent";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 export default function SchoolDirClass() {
   const [classes, setClasses] = useState(null);
@@ -103,6 +108,7 @@ export default function SchoolDirClass() {
                     textAlign: "left",
                     flexBasis: "20%",
                   }}
+                  className="poppins"
                 >
                   Grade: {c.grade_resource ? c.grade_resource : "undefined"}
                 </Typography>
@@ -120,7 +126,7 @@ export default function SchoolDirClass() {
                   }}
                   href="http://localhost:3000/ClassPage"
                 >
-                  Edit
+                  <CreateIcon />
                 </Button>
                 <Button
                   variant="contained"
@@ -135,7 +141,7 @@ export default function SchoolDirClass() {
                     marginRight: "0",
                   }}
                 >
-                  Delete
+                  <DeleteIcon/>
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
@@ -168,8 +174,9 @@ export default function SchoolDirClass() {
               handleOpen();
               addClass();
             }}
+            className="roboto"
           >
-            Add New Class
+            <AddIcon />Add Class
           </Button>
           <Modal
             open={open}
@@ -178,7 +185,7 @@ export default function SchoolDirClass() {
             aria-describedby="simple-modal-description"
           >
             <div style={modalStyle} className={styles.paper}>
-              <h2>Empty class created! Press the button below to edit:</h2>
+              <h2 classname="roboto">Empty class created! Press the button below to edit:</h2>
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#ECD100", color: "white" }}
