@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(0,0,0,.4)',
     },
     mainFeaturedPostContent: {
-    
+
       position: 'relative',
       padding: theme.spacing(3),
       [theme.breakpoints.up('md')]: {
@@ -107,11 +107,7 @@ export default function Home() {
 
 
     </Paper>
-<<<<<<< HEAD
     <div style={{display: "flex", alignItems: "center"}}>
-=======
-    <div  style={{display: "flex"}}>
->>>>>>> 86ece7e19a2e911343fc72d8c1fab55c9366cc40
 
     <Box bgcolor="#e3ecff" boxShadow={4} border={1} borderRadius={80} style={{ height:140, marginLeft:130, width:140}}>
     <Button> <Link href="AllClasses">
