@@ -109,7 +109,8 @@ export default function Home() {
     <div
       style={{
         // border: "3px solid red",
-        overflow: "none",
+        overflowX: "hidden",
+        paddingBottom: 170,
       }}
     >
       <Paper
