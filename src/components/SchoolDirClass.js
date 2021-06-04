@@ -48,6 +48,8 @@ export default function SchoolDirClass() {
     }
   };
 
+  const [class_id, setClass_id] = useState("");
+
   const addClass = () => {
     const url = new URL("http://localhost:8000/class/add");
     const data = { grade_resource: "", students: [], teacher_id: "" };
@@ -55,11 +57,13 @@ export default function SchoolDirClass() {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    });
+    })
+      .then((resp) => resp.json())
+      .then((resp) => setClass_id(resp));
   };
 
   const [edit, setEdit] = useState(false);
-  const [class_id, setClass_id] = useState("");
+
   const editClass = (classid) => {
     setEdit(true);
     setClass_id(classid);
@@ -101,15 +105,18 @@ export default function SchoolDirClass() {
     setOpen(false);
   };
 
+  const [teachers, setTeachers] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/teacher/directory")
+      .then((res) => res.json())
+      .then((res) => {
+        setTeachers(res);
+      });
+  }, []);
+
   return (
-    <div
-      style={{
-        // border: "3px solid red",
-        marginTop: "1vh",
-        marginLeft: "15%",
-        marginRight: "15%",
-      }}
-    >
+    <div style={{ marginLeft: "15%", marginRight: "15%" }}>
       <div id="main">
         {classes ? (
           classes.map((c) => (
@@ -117,14 +124,18 @@ export default function SchoolDirClass() {
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography
                   style={{
-                    marginLeft: "5%",
+                    //marginLeft: "5%",
                     textAlign: "left",
                     flexBasis: "20%",
+                    flexShrink: "0",
+                    //width: "25%",
+                    //backgroundColor: "grey",
                   }}
                   className="poppins"
                 >
                   Grade: {c.grade_resource ? c.grade_resource : "undefined"}
                 </Typography>
+                <SchoolDirTeacher teacherId={c.teacher_id} />
                 <Button
                   variant="contained"
                   onClick={(event) => {
@@ -134,7 +145,7 @@ export default function SchoolDirClass() {
                   style={{
                     backgroundColor: "#ECD100",
                     color: "white",
-                    marginLeft: "62.5%",
+                    marginLeft: "30%",
                     marginRight: "0",
                   }}
                 >
@@ -168,14 +179,7 @@ export default function SchoolDirClass() {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <SchoolDirTeacher teacherId={c.teacher_id} />
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <SchoolDirStudent studentList={c.students} />
-                  </AccordionDetails>
-                </Accordion>
+                <SchoolDirStudent studentList={c.students} />
               </AccordionDetails>
             </Accordion>
           ))
@@ -218,7 +222,9 @@ export default function SchoolDirClass() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#ECD100", color: "white" }}
-                  href="http://localhost:3000/ClassPage"
+                  onClick={() => {
+                    editClass(class_id);
+                  }}
                 >
                   Edit
                 </Button>

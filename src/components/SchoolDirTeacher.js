@@ -13,15 +13,26 @@ export default function SchoolDirTeacher({ teacherId }) {
   }, []);
 
   return (
-    <Typography>
+    <Typography
+      style={{
+        //marginLeft: "5%",
+        textAlign: "left",
+        flexBasis: "33.33%",
+        flexShrink: "0",
+        //width: "75%",
+        //backgroundColor: "red",
+      }}
+      className="poppins"
+    >
+      Teacher:
       {teachers && teachers.find((t) => t.id === teacherId) !== undefined
         ? (teachers.find((t) => t.id === teacherId).gender === "Male"
-            ? "Mr. "
-            : "Mrs. ") +
+            ? " Mr. "
+            : " Mrs. ") +
           teachers.find((t) => t.id === teacherId).first_name +
           " " +
           teachers.find((t) => t.id === teacherId).last_name
-        : "undefined"}
+        : " undefined"}
     </Typography>
   );
 }

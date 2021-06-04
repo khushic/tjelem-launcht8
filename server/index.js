@@ -41,7 +41,7 @@ app.post("/class/add", async (req, res) => {
   snapshot.forEach((doc) => {
     classList.push({ ...doc.data(), id: doc.id });
   });
-  res.send(classList);
+  res.send(resp.id);
 
   // res.sendStatus(200);
 });
