@@ -490,8 +490,8 @@ const StudentDirectory = ({ students, setStudents }) => {
       >
         <h1></h1>
         <div>
-          <button className="btn-custom blue-font" onClick={handleOpen} >
-            <AddIcon /> Add Student
+          <button className="btn-custom blue-font roboto" onClick={handleOpen} >
+            <AddIcon /> ADD STUDENT
           </button>
           <Modal
             open={open}
