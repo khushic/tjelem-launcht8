@@ -9,7 +9,7 @@ function ClassPage(props) {
   const [grade, setGrade] = useState([]);
   const [teacher, setTeacher] = useState([]);
   const [newStudents, setNewStudents] = useState([]);
-  var class_id = "U2L8HoOduUTS7yyENHO8";
+  var class_id = "TFnbA7GjwdpSLEV0R9yg";
   console.log(props.location.state);
   if (
     props.location.state != undefined &&
