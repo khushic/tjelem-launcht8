@@ -92,7 +92,7 @@ const time = (each) =>{
 
 
   return (
-    <div style={{marginLeft:390, marginBottom:100, textAlign:"center",  alignItems:"center", justifyContent:"center", width:1300}}>
+    <div style={{marginLeft:350, marginBottom:100, textAlign:"center", marginTop:100, alignItems:"center", justifyContent:"center", width:1300}}>
       <h2 style={{marginLeft: 800}}> {Loading()}</h2>
       <AddEvent
       setEvents={setEvents}>
@@ -144,18 +144,18 @@ const time = (each) =>{
       open={open}
       setEvents={setEvents}
       id={event.publicId}>
-      </EditEvent> :  event !== null &&  <Dialog className={classes.root}  color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:25}}>{event.title}</span></DialogTitle>
+      </EditEvent> :  event !== null &&  <Dialog className={classes.root} color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title"><Box bgcolor="#e3ecff">
+        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:26}}>{event.title}</span></DialogTitle>
         <DialogContent> 
-          <Box border={1} borderColor="#778899"> 
+          <Box border={1} borderColor="#778899" bgcolor="white"> 
           <div style={{ marginLeft:30,marginRight:30}}>
-            <h2>Date and Time</h2> <Clock style={{ marginLeft:20}}></Clock><span style={{fontSize:17, marginLeft:12}}>{getDate(date.start)}- {time(event)}</span></div>
-            <Divider style={{marginTop:10}}></Divider>
+            <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Date and Time</h2> <Clock style={{ marginLeft:20}}></Clock><span style={{fontSize:17, marginLeft:12}}>{getDate(date.start)}- {time(event)}</span></div>
+            <Divider style={{marginTop:20}}></Divider>
           <div style={{ marginLeft:30,marginRight:30}}>
-          <h2>Description</h2>
+          <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Description</h2>
           <span style={{alignItems:"flex-end"}}><Description style={{ marginLeft:20}}></Description> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.description}</span></span></div>
-          <Divider style={{marginTop:10}}></Divider>
-          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <h2>Location</h2><Location style={{marginLeft:20}}></Location> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.location} </span></div></Box>
+          <Divider style={{marginTop:20}}></Divider>
+          <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Location</h2><Location style={{marginLeft:20}}></Location> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.location} </span></div></Box>
         </DialogContent> 
         <DialogActions>
         <Button style={{marginRight:340}} className={classes.addbutton} onClick={handleClose} color="primary">
@@ -169,8 +169,8 @@ const time = (each) =>{
               <EditButton></EditButton></Button>
     
         </DialogActions>
+        </Box>
       </Dialog>}
-  
       
     </div>
   );
