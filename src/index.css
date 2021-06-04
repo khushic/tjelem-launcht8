@@ -15,3 +15,57 @@ code {
 .invisible{
   display: none;
 }
+
+.text-left{
+  text-align: left;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.padding-left{
+  margin-left: 10rem;
+  margin-right: 5rem;
+}
+
+.teacher-name{
+  padding-top: 1rem;
+  margin-right: 2rem;
+}
+
+.btn-custom{
+  border-style: solid!important;
+  border-color: grey!important;
+  background-color: #02075d;
+  color: white;
+  border-width: 1px!important;
+  border-radius: 3px!important;
+  margin-left: .25rem;
+  font-size: 1.25rem!important;
+  padding: 0.5rem 1rem;
+}
+
+.student-section{
+  padding-top: 2rem;
+  margin-right: 2rem;
+  border-bottom: 2px solid black;
+}
+
+.indiv-student{
+  padding-top: .5rem;
+}
+
+.grades{
+  padding-left: 3.5rem;
+}
+
+.form-control {
+  max-width: max-content;
+  display:inline-block!important;
+  height: 2.75rem;
+}
+
+.inline{
+  display:inline-block!important;
+}

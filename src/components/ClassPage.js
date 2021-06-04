@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function ClassPage(props){
   const [students, setStudents] = useState([]);
+  const [grade, setGrade] = useState([]);
   const [teacher, setTeacher] = useState([]);
   const [newStudents, setNewStudents] = useState([]);
   var class_id="U2L8HoOduUTS7yyENHO8";
@@ -57,7 +58,17 @@ function ClassPage(props){
       return temp;
     })
     .then((obj) => {
+      console.log(obj);
       getTeacher(obj.teacher_id);
+      if(obj.grade_resource == 1){
+        setGrade("1st");
+      }
+      else if(obj.grade_resource == 2){
+        setGrade("2nd");
+      }
+      else{
+        setGrade(obj.grade_resource+"th");
+      }
       console.log(obj.students);
       student_list = obj.students.map((o) => (
         <StudentGrades
@@ -131,27 +142,36 @@ function ClassPage(props){
   }
 
   return (
-    <div>
-      <h1>Class</h1>
+    <div className="padding-left">
       <div className="row row-cust">
-        <p>Teacher: {teacher}</p>
+        <div className="col-7">
+          <h1 className="text-left">{grade} Grade Class</h1>
+          <h4 className="text-left">{teacher}</h4>
+        </div>
+        <div className="col-5 text-right">
+          <div className="teacher-name">
+          <div id="add-student-div" className="invisible_cust form-group form-inline">
+            <select className="form-select form-control" id="add_dropdown">
+              {newStudents}
+            </select>
+            <button id="updateStudents" className="inline btn-custom" onClick={() => updateStudent()}>
+              Add Student
+            </button>
+            <button id="cancelStudents" className="inline btn-custom" onClick={() => cancelEdit()}>
+              Cancel
+            </button>
+          </div>
+          <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
+            Add Student
+          </button>
+        </div>
+        </div>
       </div>
-
-      <div id="add-student-div" className="invisible_cust">
-        <select id="add_dropdown">
-          {newStudents}
-        </select>
-        <button id="updateStudents" className="btn-custom" onClick={() => updateStudent()}>
-          Add Student
-        </button>
-        <button id="cancelStudents" className="btn-custom" onClick={() => cancelEdit()}>
-          Cancel
-        </button>
+      <div className="row student-section">
+        <div className="col-3 text-left"><h5>Student Name</h5></div>
+        <div className="col-4 text-left"><h5>Student Grade</h5></div>
+        <div className="col-4"></div>
       </div>
-
-      <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
-        Add Student
-      </button>
       {students}
     </div>
   );
