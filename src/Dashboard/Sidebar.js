@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: "#02075d",
+    marginTop:120,
     fontSize:'2.5em',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -47,9 +48,20 @@ const useStyles = makeStyles((theme) => ({
     height: 40,
     background: "#02075d",
     width: "100%",
-
+},
+topPush: {
+  zIndex: theme.zIndex.drawer + 1,
+  position: "fixed",
+  top: 0,
+  paddingTop: 10,
+  height: 120,
+  background: "#e3ecff",
+  width: "100%",
+  color: "#02075d",
+  marginBottom:7
 },
   appBarShift: {
+    marginTop:120,
     marginLeft: drawerWidth,
     fontSize:'2.5em',
     width: `calc(100% - ${drawerWidth}px)`,
@@ -65,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   drawer: {
+    marginTop:100,
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -72,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white"
   },
   drawerOpen: {
+    marginTop:120,
     width: drawerWidth,
     background: "#02075d",
     color: "white",
@@ -81,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    marginTop:120,
     background: "#02075d",
     color: "white",
     transition: theme.transitions.create('width', {
@@ -107,6 +122,20 @@ const useStyles = makeStyles((theme) => ({
   },
   listItemText:{
     fontSize:'1.5em',
+  },
+  type:{
+    fontFamily: 'Segoe UI Symbol',
+  // fontStyle: 'normal',
+  // fontDisplay: 'swap',
+  fontWeight: 550,
+  fontSize:40
+  },
+  smalltext:{
+    fontFamily: 'Segoe UI Symbol',
+  // fontStyle: 'normal',
+  // fontDisplay: 'swap',
+  fontWeight: 550,
+  fontSize:20
   }
 }));
 
@@ -130,8 +159,16 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <div  className={classes.topPush} style={{display:"flex"}}>
+      <img style={{width:110, marginLeft:100, marginBottom: 3}} src={TJlogo}></img> 
+      <div><Typography style={{marginLeft:100}} className={classes.type}>THOMAS JEFFERSON ELEMENTARY SCHOOL</Typography>
+      <span className={classes.smalltext} style={{marginRight:360}}>Exploring New Frontiers in Education Elementary </span>
+      </div>
+        {/* <Typography style={{marginLeft: 30}}>Thomas Jefferson Elementary School </Typography>
+    <Typography style={{ marginTop: 7}}> Team 8; Updated June 3rd, 2021</Typography> */}
+</div>
       <AppBar
-        position="fixed"
+       position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -172,8 +209,8 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: grey[50] }}/> : <ChevronLeftIcon style={{ color: grey[50] }}/>}
           </IconButton>
         </div>
-        {open ? <img style={{width:190, marginLeft:45, marginBottom: 25}} src={TJlogo}></img> : ""}
-        <Divider />
+        {/* {open ? <img style={{width:190, marginLeft:45, marginBottom: 25}} src={TJlogo}></img> : ""}
+        <Divider /> */}
         <List >
             <ListItem onClick={onItemClick('Dashboard')} button component={Link} to="/" button key="Dashboard"><ListItemIcon><HomeIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}} primary="Dashboard"></ListItemText></ListItem>
             <ListItem onClick={onItemClick('All Classes')} button component={Link} to="/AllClasses" button key="all Classes"><ListItemIcon><SchoolIcon style={{ color: grey[50] }}/></ListItemIcon><ListItemText classes={{primary:classes.listItemText}}  primary="All Classes"></ListItemText></ListItem>
@@ -185,8 +222,7 @@ export default function MiniDrawer() {
         <Divider />
         <div className={classes.bottomPush} style={{display:"flex"}}>
         <Typography style={{marginLeft: 30, marginTop: 7}}>Thomas Jefferson Elementary School </Typography>
-    <Typography style={{marginLeft: 1350, marginTop: 7}}> Team 8; Updated June 3rd, 2021</Typography>
-
+    <Typography style={{marginLeft: 1350, marginTop: 7}}> Team 8; Updated June 4th, 2021</Typography>
 </div>
       </Drawer>
       <main className={classes.content}>

@@ -9,6 +9,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Calendar from "./Events/Calendar"
 import Sidebar from "./Dashboard/Sidebar"
+import Banner from "./Dashboard/Banner"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
 const Home = () => (
   <Fragment>
     <h1>Welcome!</h1>
+    <Banner></Banner>
   </Fragment>
   );
 
