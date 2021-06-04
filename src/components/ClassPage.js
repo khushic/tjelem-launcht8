@@ -10,6 +10,9 @@ function ClassPage(props){
   const [teacher, setTeacher] = useState([]);
   const [newStudents, setNewStudents] = useState([]);
   var class_id="U2L8HoOduUTS7yyENHO8";
+  if(props.classid!=undefined){
+    class_id=props.classid;
+  }
 
   var student_list = [];
   const getTeacher = (teacher_id) => {
@@ -40,7 +43,7 @@ function ClassPage(props){
         last_name={obj.last_name}
         grade={obj.class_grade}
         update_list={updateClassInfo}
-        class_id={props.classid}
+        class_id={class_id}
         key={student_id}
       />)
       student_list.push(temp);
@@ -53,7 +56,7 @@ function ClassPage(props){
 
   const updateClassInfo = () => {
     const url = new URL("http://localhost:8000/classes/get_class")
-    url.searchParams.append("class_id", props.classid);
+    url.searchParams.append("class_id", class_id);
     fetch(url)
     .then((resp) => {
       var temp = resp.json();
@@ -76,7 +79,7 @@ function ClassPage(props){
         <StudentGrades
           update={updateClassInfo}
           key={o}
-          class_id={props.classid}
+          class_id={class_id}
           student_id={o}
         />
       ));
@@ -91,7 +94,7 @@ function ClassPage(props){
 
   const updateSelectDropdown = () => {
     const url = new URL("http://localhost:8000/classes/get_all_students")
-    url.searchParams.append("class_id", props.classid);
+    url.searchParams.append("class_id", class_id);
     fetch(url)
     .then((resp) => {
       var temp = resp.json();
@@ -99,7 +102,7 @@ function ClassPage(props){
     })
     .then((obj) => {
       var newStud = obj.map((o) => (
-        <option value={o.id}>{o.last_name}, {o.first_name}</option>
+        <option value={o.id} className="roboto">{o.last_name}, {o.first_name}</option>
       ));
       setNewStudents(newStud);
       return newStud;
@@ -130,7 +133,7 @@ function ClassPage(props){
     var e = document.getElementById("add_dropdown").value;
     console.log(e);
     const url = new URL("http://localhost:8000/classes/add_student")
-    const data = { "class_id": props.classid, "student_id": e };
+    const data = { "class_id": class_id, "student_id": e };
     axios.post(url, data)
     .then((resp) => {
       console.log(resp);
@@ -147,23 +150,23 @@ function ClassPage(props){
     <div className="padding-left">
       <div className="row row-cust class-header">
         <div className="col-7">
-          <h1 className="text-left">{grade} Grade Class</h1>
-          <h4 className="text-left">{teacher}</h4>
+          <h1 className="text-left poppins">{grade} Grade Class</h1>
+          <h4 className="text-left poppins">{teacher}</h4>
         </div>
         <div className="col-5 text-right">
           <div className="teacher-name">
           <div id="add-student-div" className="invisible_cust form-group form-inline">
-            <select className="form-select form-control" id="add_dropdown">
+            <select className="form-select form-control roboto" id="add_dropdown">
               {newStudents}
             </select>
-            <button id="updateStudents" className="inline btn-custom" onClick={() => updateStudent()}>
+            <button id="updateStudents" className="inline btn-custom roboto" onClick={() => updateStudent()}>
               <AddIcon/>
             </button>
-            <button id="cancelStudents" className="inline btn-custom" onClick={() => cancelEdit()}>
+            <button id="cancelStudents" className="inline btn-custom roboto" onClick={() => cancelEdit()}>
               <CloseIcon/>
             </button>
           </div>
-          <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
+          <button id="editStudents" className="btn-custom roboto" onClick={() => addStudent()}>
             <AddIcon/> ADD STUDENT
           </button>
         </div>
@@ -171,8 +174,8 @@ function ClassPage(props){
       </div>
       <div className="all-students">
       <div className="row student-section">
-        <div className="col-4 text-left"><h5>Student Name</h5></div>
-        <div className="col-4 text-left"><h5>Student Grade</h5></div>
+        <div className="col-4 text-left poppins"><h5>Student Name</h5></div>
+        <div className="col-4 text-left poppins"><h5>Student Grade</h5></div>
         <div className="col-4"></div>
       </div>
       {students}
