@@ -1,8 +1,11 @@
 import "./App.css";
 import StudentDirectory from "./StudentDirectory";
 import TeacherDirectory from "./TeacherDirectory";
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Calendar from "./Events/Calendar"
+import Sidebar from "./Dashboard/Sidebar"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   const [students, setStudents] = useState(null);
@@ -38,11 +41,25 @@ function App() {
   // console.log("test", students);
 
   return (
-    <div>
-      <StudentDirectory students={students} setStudents={setStudents} />
-      <TeacherDirectory teachers={teachers} setTeachers={setTeachers} />
+    <div className="App">
+      <Router>
+      <Sidebar></Sidebar>
+        <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/AllClasses"  />
+        <Route path="/ClassPage"  />
+        <Route path="/StudentDirectory"><StudentDirectory students={students} setStudents={setStudents} /></Route>
+        <Route path="/TeacherDirectory"><TeacherDirectory teachers={teachers} setTeachers={setTeachers} /></Route>
+        <Route path="/Calendar"  component={Calendar} />
+       </Switch>
+      </Router>
     </div>
   );
 }
+const Home = () => (
+  <Fragment>
+    <h1>Welcome!</h1>
+  </Fragment>
+  );
 
 export default App;
