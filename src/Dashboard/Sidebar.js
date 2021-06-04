@@ -160,8 +160,8 @@ export default function MiniDrawer() {
     <div className={classes.root}>
       <CssBaseline />
       <div  className={classes.topPush} style={{display:"flex"}}>
-      <img style={{width:110, marginLeft:100, marginBottom: 3}} src={TJlogo}></img> 
-      <div><Typography style={{marginLeft:100}} className={classes.type}>THOMAS JEFFERSON ELEMENTARY SCHOOL</Typography>
+      <img style={{width:110, marginLeft:100, marginBottom: 3}} src={TJlogo}></img>
+      <div className="poppins"><Typography style={{marginLeft:100}} className={classes.type}>THOMAS JEFFERSON ELEMENTARY SCHOOL</Typography>
       <span className={classes.smalltext} style={{marginRight:360}}>Exploring New Frontiers in Education Elementary </span>
       </div>
         {/* <Typography style={{marginLeft: 30}}>Thomas Jefferson Elementary School </Typography>
@@ -228,7 +228,7 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
       </main>
-      
+
     </div>
   );
 }

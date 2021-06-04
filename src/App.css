@@ -41,11 +41,23 @@
   font-size: 14px;
 }
 
-
-.roboto{
-  font-family: 'Roboto', sans-serif!important;
+.padding-directory {
+  margin-left: 7rem !important;
+  padding-right: 4rem !important;
+  padding-bottom: 6rem !important;
+  padding-top: 4rem !important;
+  overflow: scroll;
 }
 
-.poppins{
-  font-family: 'Poppins', sans-serif!important;
+.margin-left {
+  margin-top: -1rem;
+  overflow-x: hidden;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.padding-modal {
+  padding: 1rem;
 }

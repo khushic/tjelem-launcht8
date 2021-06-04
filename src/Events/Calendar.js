@@ -13,11 +13,13 @@ import EditEvent from "./EditEvent"
 import { makeStyles } from '@material-ui/core/styles';
 import EditButton from '@material-ui/icons/Edit'
 import timeGridPlugin from '@fullcalendar/timegrid';
-
+import moment from "moment"
+import Close from "@material-ui/icons/Close"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#02075d",
-      color: "white"
+      color: "white",
+      fontWeight: "bold",
     },
     root: {
       color: "yellow",
@@ -68,13 +70,19 @@ const getDate = (format) =>{
 }
 
 const changeEditState = (date, title, description, location) =>{
+  let theTime = time(event)
     if (editState === false){
         setEditState(true);
         setEditedDate(date);
         setEditedTitle(title);
         setEditedDescription(description);
         setEditedLocation(location);
-        setEditedTime(time(event))
+        if (theTime !== "All Day"){
+          const converted = moment(theTime, 'hh:mm a').format('HH:mm')
+          setEditedTime(converted)
+        } else {
+          setEditedTime(theTime)
+        }
     } else {
     
         setEditState(false);
@@ -145,7 +153,7 @@ const time = (each) =>{
       setEvents={setEvents}
       id={event.publicId}>
       </EditEvent> :  event !== null &&  <Dialog className={classes.root} color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title"><Box bgcolor="#e3ecff">
-        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{fontWeight: 'bold', fontSize:26}}>{event.title}</span></DialogTitle>
+        <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{ fontWeight: 'bold', fontSize:30, fontFamily: "Poppins"}}>{event.title}</span></DialogTitle>
         <DialogContent> 
           <Box border={1} borderColor="#778899" bgcolor="white"> 
           <div style={{ marginLeft:30,marginRight:30}}>
@@ -158,14 +166,11 @@ const time = (each) =>{
           <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Location</h2><Location style={{marginLeft:20}}></Location> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.location} </span></div></Box>
         </DialogContent> 
         <DialogActions>
-        <Button style={{marginRight:340}} className={classes.addbutton} onClick={handleClose} color="primary">
-            Cancel
-          </Button>
             <DeleteEvent
             setOpen={setOpen}
             setEvents={setEvents}
             id={event.publicId}></DeleteEvent>
-            <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:10}} onClick={()=>changeEditState(event.extendedProps.displaydate, event.title, event.extendedProps.description, event.extendedProps.location)}>
+            <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:425}} onClick={()=>changeEditState(event.extendedProps.displaydate, event.title, event.extendedProps.description, event.extendedProps.location)}>
               <EditButton></EditButton></Button>
     
         </DialogActions>

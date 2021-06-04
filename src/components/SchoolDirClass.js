@@ -13,6 +13,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SchoolDirTeacher from "./SchoolDirTeacher";
 import SchoolDirStudent from "./SchoolDirStudent";
 import ClassPage from "./ClassPage";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 export default function SchoolDirClass() {
   const [classes, setClasses] = useState(null);
@@ -109,6 +114,7 @@ export default function SchoolDirClass() {
                     textAlign: "left",
                     flexBasis: "20%",
                   }}
+                  className="poppins"
                 >
                   Grade: {c.grade_resource ? c.grade_resource : "undefined"}
                 </Typography>
@@ -125,7 +131,7 @@ export default function SchoolDirClass() {
                     marginRight: "0",
                   }}
                 >
-                  Edit
+                  <CreateIcon />
                 </Button>
 
                 {edit ? (
@@ -151,7 +157,7 @@ export default function SchoolDirClass() {
                     marginRight: "0",
                   }}
                 >
-                  Delete
+                  <DeleteIcon/>
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
@@ -184,17 +190,21 @@ export default function SchoolDirClass() {
               handleOpen();
               addClass();
             }}
+            className="roboto"
           >
-            Add New Class
+            <AddIcon />Add Class
           </Button>
           <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
+            className="padding-modal"
           >
             <div style={modalStyle} className={styles.paper}>
-              <h2>Empty class created! Press the button below to edit:</h2>
+              <div className="padding-modal">
+              <h2 classname="roboto">Empty class created! Press the button below to edit:</h2>
+              <br />
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#ECD100", color: "white" }}
@@ -202,6 +212,7 @@ export default function SchoolDirClass() {
               >
                 Edit
               </Button>
+              </div>
             </div>
           </Modal>
         </div>

@@ -73,7 +73,9 @@ function App() {
 const Home = () => (
   <Fragment>
     <h1>Welcome!</h1>
-    <Banner></Banner>
+    <div className="margin-left">
+      <Banner></Banner>
+    </div>
   </Fragment>
 );
 
