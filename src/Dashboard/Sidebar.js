@@ -177,6 +177,7 @@ export default function MiniDrawer() {
             Exploring New Frontiers in Elementary Education
           </span>
         </div>
+
         {/* <Typography style={{marginLeft: 30}}>Thomas Jefferson Elementary School </Typography>
     <Typography style={{ marginTop: 7}}> Team 8; Updated June 3rd, 2021</Typography> */}
       </div>

@@ -93,8 +93,8 @@ function StudentGrades(props){
 
   return (
     <div className="row indiv-student">
-      <div className="col-4 text-left roboto"><h5>{last}, {first}</h5></div>
-      <div className="col-1 text-left"><h4 className="grades roboto">{grade}</h4></div>
+      <div className="col-4 text-left roboto weight-300"><p>{last}, {first}</p></div>
+      <div className="col-1 text-left"><p className="grades roboto weight-300">{grade}</p></div>
       <div className="col-7 text-right">
         <div id={props.student_id+"updateButton"} className="invisible_cust inline">
           <select className="form-control form-select roboto" id={props.student_id+"dropdown"}>
