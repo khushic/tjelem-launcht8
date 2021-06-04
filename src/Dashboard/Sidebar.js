@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: "#02075d",
-    marginTop: 120,
+    marginTop: 140,
     fontSize: "2.5em",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -55,14 +55,14 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: 0,
     paddingTop: 10,
-    height: 120,
+    height: 140,
     background: "#e3ecff",
     width: "100%",
     color: "#02075d",
     marginBottom: 7,
   },
   appBarShift: {
-    marginTop: 120,
+    marginTop: 140,
     marginLeft: drawerWidth,
     fontSize: "2.5em",
     width: `calc(100% - ${drawerWidth}px)`,
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   drawerOpen: {
-    marginTop: 120,
+    marginTop: 140,
     width: drawerWidth,
     background: "#02075d",
     color: "white",
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
-    marginTop: 120,
+    marginTop: 140,
     background: "#02075d",
     color: "white",
     transition: theme.transitions.create("width", {
@@ -132,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
     // fontDisplay: 'swap',
     fontWeight: 550,
     fontSize: 40,
+    marginTop:11
   },
   smalltext: {
     // fontFamily: "Segoe UI Symbol",
@@ -166,7 +167,7 @@ export default function MiniDrawer() {
       <CssBaseline />
       <div className={classes.topPush} style={{ display: "flex" }}>
         <img
-          style={{ width: 110, marginLeft: 100, marginBottom: 3 }}
+          style={{ width: 110, marginLeft: 100, marginBottom: 13, marginTop:6 }}
           src={TJlogo}
         ></img>
         <div style={{ textAlign: "left", marginLeft: 50 }}>
