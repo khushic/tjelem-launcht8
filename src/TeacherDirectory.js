@@ -41,6 +41,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     gender,
     birthday,
     address,
+    resource,
     id
   ) {
     return {
@@ -51,6 +52,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       gender,
       birthday,
       address,
+      resource,
       id,
     };
   }
@@ -64,6 +66,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       teacher.gender,
       teacher.birthday,
       teacher.address,
+      teacher.resource,
       teacher.id
     )
   );
@@ -135,6 +138,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
   const [addGender, setAddGender] = useState("");
   const [addBirthday, setAddBirthday] = useState("");
   const [addAddress, setAddAddress] = useState("");
+  const [addResource, setAddResource] = useState("");
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -146,6 +150,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       gender: addGender,
       birthday: addBirthday,
       address: addAddress,
+      resource: addResource,
     };
 
     let IDs = [];
@@ -175,6 +180,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     setAddGender("");
     setAddBirthday("");
     setAddAddress("");
+    setAddResource("");
   };
 
   function EditModal({ row }) {
@@ -193,6 +199,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     const [editedGender, setEditedGender] = useState(row.gender);
     const [editedBirthday, setEditedBirthday] = useState(row.birthday);
     const [editedAddress, setEditedAddress] = useState(row.address);
+    const [editedResource, setEditedResource] = useState(row.resource);
 
     // console.log(row);
     // console.log(typeof editedBirthday);
@@ -210,6 +217,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
         gender: editedGender,
         birthday: editedBirthday,
         address: editedAddress,
+        resource: editedResource,
         id: id,
       };
 
@@ -274,6 +282,13 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                 id="editGrade"
                 value={parseInt(editedGrade)}
                 onChange={(e) => setEditedGrade(e.target.value)}
+              />
+              <p>Resource</p>
+              <TextField
+                required
+                id="editResource"
+                value={editedResource}
+                onChange={(e) => setEditedResource(e.target.value)}
               />
               <p>Gender</p>
               <TextField
@@ -365,6 +380,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Address</TableCell>
+                      <TableCell>Resource</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -372,6 +388,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                       <TableCell component="th" scope="row">
                         {row.address ? row.address : ""}
                       </TableCell>
+                      <TableCell>{row.resource ? row.resource : ""}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -429,6 +446,12 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                 <TextField
                   value={addGrade}
                   onChange={(e) => setAddGrade(e.target.value)}
+                  required
+                />
+                <p>Resource</p>
+                <TextField
+                  value={addResource}
+                  onChange={(e) => setAddResource(e.target.value)}
                   required
                 />
                 <p>Gender</p>

@@ -362,8 +362,16 @@ app.delete("/teacher/directory/delete", async (req, res) => {
 app.post("/teacher/directory/add", async (req, res) => {
   // console.log(req.body);
 
-  const { address, birthday, email, first_name, gender, grade, last_name } =
-    req.body;
+  const {
+    address,
+    birthday,
+    email,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    resource,
+  } = req.body;
 
   const resp = await db.collection("teachers").add({
     address,
@@ -373,6 +381,7 @@ app.post("/teacher/directory/add", async (req, res) => {
     gender,
     grade,
     last_name,
+    resource,
   });
 
   console.log(`Added element with id: ${resp.id}`);
@@ -390,8 +399,17 @@ app.post("/teacher/directory/add", async (req, res) => {
 });
 
 app.put("/teacher/directory/edit", async (req, res) => {
-  const { address, birthday, email, first_name, gender, grade, last_name, id } =
-    req.body;
+  const {
+    address,
+    birthday,
+    email,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    resource,
+    id,
+  } = req.body;
 
   console.log("id: ", req.body.id);
 
@@ -403,6 +421,7 @@ app.put("/teacher/directory/edit", async (req, res) => {
     gender,
     grade,
     last_name,
+    resource,
   });
 
   console.log(`Edited element with id: ${id}`);
