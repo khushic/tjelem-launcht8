@@ -10,8 +10,11 @@ function ClassPage(props) {
   const [teacher, setTeacher] = useState([]);
   const [newStudents, setNewStudents] = useState([]);
   var class_id = "U2L8HoOduUTS7yyENHO8";
-  console.log(props.location.state.classid);
-  if (props.location.state.classid != undefined) {
+  console.log(props.location.state);
+  if (
+    props.location.state != undefined &&
+    props.location.state.classid != undefined
+  ) {
     class_id = props.location.state.classid;
   }
 
