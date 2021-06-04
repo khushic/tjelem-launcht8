@@ -13,11 +13,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SchoolDirTeacher from "./SchoolDirTeacher";
 import SchoolDirStudent from "./SchoolDirStudent";
 import ClassPage from "./ClassPage";
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
-import CloseIcon from '@material-ui/icons/Close';
-import CheckIcon from '@material-ui/icons/Check';
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
+import CloseIcon from "@material-ui/icons/Close";
+import CheckIcon from "@material-ui/icons/Check";
 
 export default function SchoolDirClass() {
   const [classes, setClasses] = useState(null);
@@ -102,7 +102,14 @@ export default function SchoolDirClass() {
   };
 
   return (
-    <div style={{ marginTop: "15vh", marginLeft: "15%", marginRight: "15%" }}>
+    <div
+      style={{
+        // border: "3px solid red",
+        marginTop: "1vh",
+        marginLeft: "15%",
+        marginRight: "15%",
+      }}
+    >
       <div id="main">
         {classes ? (
           classes.map((c) => (
@@ -157,7 +164,7 @@ export default function SchoolDirClass() {
                     marginRight: "0",
                   }}
                 >
-                  <DeleteIcon/>
+                  <DeleteIcon />
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
@@ -192,7 +199,8 @@ export default function SchoolDirClass() {
             }}
             className="roboto"
           >
-            <AddIcon />Add Class
+            <AddIcon />
+            Add Class
           </Button>
           <Modal
             open={open}
@@ -203,15 +211,17 @@ export default function SchoolDirClass() {
           >
             <div style={modalStyle} className={styles.paper}>
               <div className="padding-modal">
-              <h2 classname="roboto">Empty class created! Press the button below to edit:</h2>
-              <br />
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "#ECD100", color: "white" }}
-                href="http://localhost:3000/ClassPage"
-              >
-                Edit
-              </Button>
+                <h2 classname="roboto">
+                  Empty class created! Press the button below to edit:
+                </h2>
+                <br />
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#ECD100", color: "white" }}
+                  href="http://localhost:3000/ClassPage"
+                >
+                  Edit
+                </Button>
               </div>
             </div>
           </Modal>
