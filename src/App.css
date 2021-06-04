@@ -41,6 +41,13 @@
   font-size: 14px;
 }
 
-.poppins {
-  font-family: ‘Poppins’, sans-serif !important;
+
+
+
+.poppins{
+  font-family: 'Poppins', sans-serif!important;
+}
+
+.padding-modal{
+  padding: 1rem;
 }

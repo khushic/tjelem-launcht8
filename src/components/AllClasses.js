@@ -3,8 +3,7 @@ import SchoolDirClass from "./SchoolDirClass";
 
 export default function AllClasses() {
   return (
-    <div style={{ marginLeft: "20px", marginRight: "20px" }}>
-      <h1>School Directory</h1>
+    <div className="padding-all-classes">
       <SchoolDirClass />
     </div>
   );

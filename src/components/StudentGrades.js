@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { FaRegSmile } from 'react-icons/fa';
+import { FaRegSadTear } from 'react-icons/fa';
+import { FaRegMeh } from 'react-icons/fa';
 import axios from 'axios';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 function StudentGrades(props){
   const [first, setFirst] = useState([]);
@@ -31,23 +38,34 @@ function StudentGrades(props){
     .then((obj) => {
       setFirst(obj.first_name);
       setLast(obj.last_name);
-      setGrade(obj.class_grade);
+      if(obj.class_grade == -1){
+        setGrade("N/A");
+      }
+      else if(obj.class_grade == 0){
+        setGrade(<FaRegSadTear />);
+      }
+      else if(obj.class_grade == 1){
+        setGrade(<FaRegMeh />);
+      }
+      else{
+        setGrade(<FaRegSmile />);
+      }
     });
   }
 
   useEffect(() => {
     updateStudentInfo();
-    document.getElementById(props.student_id+"updateButton").classList.add("invisible");
+    document.getElementById(props.student_id+"updateButton").classList.add("invisible_cust");
   }, []);
 
   const editGrade = () => {
-    document.getElementById(props.student_id+"updateButton").classList.remove("invisible");
-    document.getElementById(props.student_id+"editButton").classList.add("invisible");
+    document.getElementById(props.student_id+"updateButton").classList.remove("invisible_cust");
+    document.getElementById(props.student_id+"editButton").classList.add("invisible_cust");
   }
 
   const cancelEdit = () => {
-    document.getElementById(props.student_id+"updateButton").classList.add("invisible");
-    document.getElementById(props.student_id+"editButton").classList.remove("invisible");
+    document.getElementById(props.student_id+"updateButton").classList.add("invisible_cust");
+    document.getElementById(props.student_id+"editButton").classList.remove("invisible_cust");
   }
 
   const updateGrade = () => {
@@ -58,35 +76,47 @@ function StudentGrades(props){
     .then((resp) => {
       return resp;
     })
-    setGrade(e);
-    document.getElementById(props.student_id+"updateButton").classList.add("invisible");
-    document.getElementById(props.student_id+"editButton").classList.remove("invisible");
+    if(e == -1){
+      setGrade("N/A");
+    }
+    else if(e == 0){
+      setGrade(<FaRegSadTear />);
+    }
+    else if(e == 1){
+      setGrade(<FaRegMeh />);
+    }
+    else{
+      setGrade(<FaRegSmile />);
+    }    document.getElementById(props.student_id+"updateButton").classList.add("invisible_cust");
+    document.getElementById(props.student_id+"editButton").classList.remove("invisible_cust");
   }
 
   return (
-    <div>
-        <h5>{last}, {first}</h5>
-        <p>{grade}</p>
-        <div id={props.student_id+"updateButton"} className="invisible_cust">
-          <select id={props.student_id+"dropdown"}>
+    <div className="row indiv-student">
+      <div className="col-4 text-left roboto"><h5>{last}, {first}</h5></div>
+      <div className="col-1 text-left"><h4 className="grades roboto">{grade}</h4></div>
+      <div className="col-7 text-right">
+        <div id={props.student_id+"updateButton"} className="invisible_cust inline">
+          <select className="form-control form-select roboto" id={props.student_id+"dropdown"}>
             <option value="-1" selected="selected">N/A</option>
-            <option value="0">sad</option>
-            <option value="1">eh</option>
-            <option value="2">smiley</option>
+            <option value="0">Poorly</option>
+            <option value="1">Okay</option>
+            <option value="2">Good</option>
           </select>
-          <button id={props.student_id+"updateGrade"} className="btn-custom" onClick={() => updateGrade()}>
-            Submit Update
+          <button id={props.student_id+"updateGrade"} className="btn-custom inline" onClick={() => updateGrade()}>
+          <CheckIcon/>
           </button>
-          <button id={props.student_id+"cancelButton"} className="btn-custom" onClick={() => cancelEdit()}>
-            Cancel
+          <button id={props.student_id+"cancelButton"} className="btn-custom inline" onClick={() => cancelEdit()}>
+            <CloseIcon/>
           </button>
         </div>
-        <button id={props.student_id+"editButton"} className="btn-custom" onClick={() => editGrade()}>
-          Edit Grade
+        <button id={props.student_id+"editButton"} className="btn-custom inline" onClick={() => editGrade()}>
+          <CreateIcon />
         </button>
-        <button className="btn-custom" onClick={() => removeStudent()}>
-          Remove from Class
+        <button className="btn-custom inline" onClick={() => removeStudent()}>
+          <DeleteIcon />
         </button>
+      </div>
     </div>
   );
 }

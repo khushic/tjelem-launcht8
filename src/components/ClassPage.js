@@ -1,12 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import StudentGrades from "./StudentGrades"
 import axios from 'axios';
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 
 function ClassPage(props){
   const [students, setStudents] = useState([]);
+  const [grade, setGrade] = useState([]);
   const [teacher, setTeacher] = useState([]);
   const [newStudents, setNewStudents] = useState([]);
   var class_id="U2L8HoOduUTS7yyENHO8";
+  if(props.classid!=undefined){
+    class_id=props.classid;
+  }
 
   var student_list = [];
   const getTeacher = (teacher_id) => {
@@ -57,7 +63,17 @@ function ClassPage(props){
       return temp;
     })
     .then((obj) => {
+      console.log(obj);
       getTeacher(obj.teacher_id);
+      if(obj.grade_resource == 1){
+        setGrade("1st");
+      }
+      else if(obj.grade_resource == 2){
+        setGrade("2nd");
+      }
+      else{
+        setGrade(obj.grade_resource+"th");
+      }
       console.log(obj.students);
       student_list = obj.students.map((o) => (
         <StudentGrades
@@ -86,7 +102,7 @@ function ClassPage(props){
     })
     .then((obj) => {
       var newStud = obj.map((o) => (
-        <option value={o.id}>{o.last_name}, {o.first_name}</option>
+        <option value={o.id} className="roboto">{o.last_name}, {o.first_name}</option>
       ));
       setNewStudents(newStud);
       return newStud;
@@ -95,7 +111,7 @@ function ClassPage(props){
 
   useEffect(() => {
     updateClassInfo();
-    document.getElementById("add-student-div").classList.add("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
   }, []);
 
   useEffect(() => {
@@ -104,13 +120,13 @@ function ClassPage(props){
   }, [students]);
 
   const addStudent = () => {
-    document.getElementById("add-student-div").classList.remove("invisible");
-    document.getElementById("editStudents").classList.add("invisible");
+    document.getElementById("add-student-div").classList.remove("invisible_cust");
+    document.getElementById("editStudents").classList.add("invisible_cust");
   }
 
   const cancelEdit = () => {
-    document.getElementById("add-student-div").classList.add("invisible");
-    document.getElementById("editStudents").classList.remove("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
+    document.getElementById("editStudents").classList.remove("invisible_cust");
   }
 
   const updateStudent = () => {
@@ -126,33 +142,44 @@ function ClassPage(props){
     updateClassInfo();
     updateClassInfo();
     updateClassInfo();
-    document.getElementById("add-student-div").classList.add("invisible");
-    document.getElementById("editStudents").classList.remove("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
+    document.getElementById("editStudents").classList.remove("invisible_cust");
   }
 
   return (
-    <div>
-      <h1>Class</h1>
-      <div className="row row-cust">
-        <p>Teacher: {teacher}</p>
+    <div className="padding-left">
+      <div className="row row-cust class-header">
+        <div className="col-7">
+          <h1 className="text-left poppins">{grade} Grade Class</h1>
+          <h4 className="text-left poppins">{teacher}</h4>
+        </div>
+        <div className="col-5 text-right">
+          <div className="teacher-name">
+          <div id="add-student-div" className="invisible_cust form-group form-inline">
+            <select className="form-select form-control roboto" id="add_dropdown">
+              {newStudents}
+            </select>
+            <button id="updateStudents" className="inline btn-custom roboto" onClick={() => updateStudent()}>
+              <AddIcon/>
+            </button>
+            <button id="cancelStudents" className="inline btn-custom roboto" onClick={() => cancelEdit()}>
+              <CloseIcon/>
+            </button>
+          </div>
+          <button id="editStudents" className="btn-custom roboto" onClick={() => addStudent()}>
+            <AddIcon/> ADD STUDENT
+          </button>
+        </div>
+        </div>
       </div>
-
-      <div id="add-student-div" className="invisible_cust">
-        <select id="add_dropdown">
-          {newStudents}
-        </select>
-        <button id="updateStudents" className="btn-custom" onClick={() => updateStudent()}>
-          Add Student
-        </button>
-        <button id="cancelStudents" className="btn-custom" onClick={() => cancelEdit()}>
-          Cancel
-        </button>
+      <div className="all-students">
+      <div className="row student-section">
+        <div className="col-4 text-left poppins"><h5>Student Name</h5></div>
+        <div className="col-4 text-left poppins"><h5>Student Grade</h5></div>
+        <div className="col-4"></div>
       </div>
-
-      <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
-        Add Student
-      </button>
       {students}
+      </div>
     </div>
   );
 }

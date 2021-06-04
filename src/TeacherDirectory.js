@@ -41,6 +41,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     gender,
     birthday,
     address,
+    resource,
     id
   ) {
     return {
@@ -51,6 +52,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       gender,
       birthday,
       address,
+      resource,
       id,
     };
   }
@@ -64,6 +66,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       teacher.gender,
       teacher.birthday,
       teacher.address,
+      teacher.resource,
       teacher.id
     )
   );
@@ -135,6 +138,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
   const [addGender, setAddGender] = useState("");
   const [addBirthday, setAddBirthday] = useState("");
   const [addAddress, setAddAddress] = useState("");
+  const [addResource, setAddResource] = useState("");
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -146,6 +150,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
       gender: addGender,
       birthday: addBirthday,
       address: addAddress,
+      resource: addResource,
     };
 
     let IDs = [];
@@ -175,6 +180,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     setAddGender("");
     setAddBirthday("");
     setAddAddress("");
+    setAddResource("");
   };
 
   function EditModal({ row }) {
@@ -193,6 +199,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     const [editedGender, setEditedGender] = useState(row.gender);
     const [editedBirthday, setEditedBirthday] = useState(row.birthday);
     const [editedAddress, setEditedAddress] = useState(row.address);
+    const [editedResource, setEditedResource] = useState(row.resource);
 
     // console.log(row);
     // console.log(typeof editedBirthday);
@@ -210,6 +217,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
         gender: editedGender,
         birthday: editedBirthday,
         address: editedAddress,
+        resource: editedResource,
         id: id,
       };
 
@@ -240,49 +248,59 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
           aria-describedby="simple-modal-description"
         >
           <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Edit this Teacher</h2>
+            <br />
+            <h2 id="simple-modal-title" className="poppins">
+              Edit this Teacher
+            </h2>
             <form
               id="simple-modal-description"
               className="student-add-form"
               onSubmit={(e) => handleEdit(e, row.id)}
             >
               {/* {console.log(row.id)} */}
-              <p>Email</p>
+              <p className="roboto">Email</p>
               <TextField
                 required
                 id="editEmail"
                 value={editedEmail}
                 onChange={(e) => setEditedEmail(e.target.value)}
               />
-              <p>Last Name</p>
+              <p className="roboto">Last Name</p>
               <TextField
                 required
                 id="editLastName"
                 value={editedLastName}
                 onChange={(e) => setEditedLastName(e.target.value)}
               />
-              <p>First Name</p>
+              <p className="roboto">First Name</p>
               <TextField
                 required
                 id="editFirstName"
                 value={editedFirstName}
                 onChange={(e) => setEditedFirstName(e.target.value)}
               />
-              <p>Grade</p>
+              <p className="roboto">Grade</p>
               <TextField
                 required
                 id="editGrade"
                 value={parseInt(editedGrade)}
                 onChange={(e) => setEditedGrade(e.target.value)}
               />
-              <p>Gender</p>
+              <p className="roboto">Resource</p>
+              <TextField
+                required
+                id="editResource"
+                value={editedResource}
+                onChange={(e) => setEditedResource(e.target.value)}
+              />
+              <p className="roboto">Gender</p>
               <TextField
                 required
                 id="editGender"
                 value={editedGender}
                 onChange={(e) => setEditedGender(e.target.value)}
               />
-              <p>Birthday</p>
+              <p className="roboto">Birthday</p>
               <TextField
                 type="date"
                 id="editBirthday"
@@ -291,7 +309,7 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                 value={editedBirthday}
                 onChange={(e) => setEditedBirthday(e.target.value)}
               />
-              <p>Address</p>
+              <p className="roboto">Address</p>
               <TextField
                 required
                 id="editAddress"
@@ -316,22 +334,26 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
     return (
       <Fragment>
         <TableRow className={classes.root}>
-          <TableCell>{row.email ? row.email : ""}</TableCell>
-          <TableCell align="right">
+          <TableCell className="roboto">{row.email ? row.email : ""}</TableCell>
+          <TableCell className="roboto" align="right">
             {row.lastName ? row.lastName : ""}
           </TableCell>
-          <TableCell align="right">
+          <TableCell className="roboto" align="right">
             {row.firstName ? row.firstName : ""}
           </TableCell>
-          <TableCell align="right">{row.grade ? row.grade : ""}</TableCell>
-          <TableCell align="right">{row.gender ? row.gender : ""}</TableCell>
-          <TableCell align="right">
-            {moment(row.birthday).format("DD/MM/YY")
-              ? moment(row.birthday).format("DD/MM/YY")
+          <TableCell className="roboto" align="right">
+            {row.grade ? row.grade : ""}
+          </TableCell>
+          <TableCell className="roboto" align="right">
+            {row.gender ? row.gender : ""}
+          </TableCell>
+          <TableCell className="roboto" align="right">
+            {moment(row.birthday).format("MM/DD/YY")
+              ? moment(row.birthday).format("MM/DD/YY")
               : ""}
           </TableCell>
 
-          <TableCell align="right">
+          <TableCell className="roboto" align="right">
             <IconButton
               aria-label="expand row"
               size="small"
@@ -346,7 +368,12 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box margin={1}>
                 <div className="directory-dropdown">
-                  <Typography variant="h6" gutterBottom component="div">
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    component="div"
+                    className="poppins"
+                  >
                     Additional Information
                   </Typography>
                   <div
@@ -364,13 +391,19 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Address</TableCell>
+                      <TableCell className="poppins">Address</TableCell>
+                      <TableCell />
+                      <TableCell className="poppins">Resource</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell component="th" scope="row">
+                      <TableCell className="roboto" component="th" scope="row">
                         {row.address ? row.address : ""}
+                      </TableCell>
+                      <TableCell />
+                      <TableCell className="roboto">
+                        {row.resource ? row.resource : ""}
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -387,12 +420,18 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
 
   return (
     <div className="container">
-      <div className="header">
-        <h1>Teacher Directory</h1>
+      <div
+        className="header"
+        style={{
+          paddingBottom: "2rem",
+          paddingTop: "2rem",
+        }}
+      >
+        <h1></h1>
         <div>
-          <Button onClick={handleOpen}>
+          <button className="btn-custom" onClick={handleOpen}>
             <AddIcon /> Add Teacher
-          </Button>
+          </button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -400,51 +439,60 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
             aria-describedby="simple-modal-description"
           >
             <div style={modalStyle} className={classes.paper}>
-              <h2 id="simple-modal-title">Add a Teacher</h2>
+              <br />
+              <h2 id="simple-modal-title" className="poppins">
+                Add a Teacher
+              </h2>
 
               <form
                 id="simple-modal-description"
                 className="student-add-form"
                 onSubmit={handleAdd}
               >
-                <p>Email Address</p>
+                <p className="roboto">Email Address</p>
                 <TextField
                   value={addEmail}
                   onChange={(e) => setAddEmail(e.target.value)}
                   required
                 />
-                <p>Last Name</p>
+                <p className="roboto">Last Name</p>
                 <TextField
                   value={addLastName}
                   onChange={(e) => setAddLastName(e.target.value)}
                   required
                 />
-                <p>First Name</p>
+                <p className="roboto">First Name</p>
                 <TextField
                   value={addFirstName}
                   onChange={(e) => setAddFirstName(e.target.value)}
                   required
                 />
-                <p>Grade</p>
+                <p className="roboto">Grade</p>
                 <TextField
                   value={addGrade}
                   onChange={(e) => setAddGrade(e.target.value)}
                   required
                 />
-                <p>Gender</p>
+                <p className="roboto">Resource</p>
+                <TextField
+                  value={addResource}
+                  onChange={(e) => setAddResource(e.target.value)}
+                  required
+                />
+                <p className="roboto">Gender</p>
                 <TextField
                   value={addGender}
                   onChange={(e) => setAddGender(e.target.value)}
                   required
                 />
-                <p>Birthday</p>
+                <p className="roboto">Birthday</p>
                 <TextField
                   type="date"
                   value={addBirthday}
                   onChange={(e) => setAddBirthday(e.target.value)}
                   required
                 />
-                <p>Address</p>
+                <p className="roboto">Address</p>
                 <TextField
                   value={addAddress}
                   onChange={(e) => setAddAddress(e.target.value)}
@@ -464,13 +512,23 @@ const TeacherDirectory = ({ teachers, setTeachers }) => {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell>Email Address</TableCell>
-              <TableCell align="right">Last Name</TableCell>
-              <TableCell align="right">First Name</TableCell>
-              <TableCell align="right">Grade</TableCell>
-              <TableCell align="right">Gender</TableCell>
-              <TableCell align="right">Birthday</TableCell>
-              <TableCell align="right" />
+              <TableCell className="poppins">Email Address</TableCell>
+              <TableCell className="poppins" align="right">
+                Last Name
+              </TableCell>
+              <TableCell className="poppins" align="right">
+                First Name
+              </TableCell>
+              <TableCell className="poppins" align="right">
+                Grade
+              </TableCell>
+              <TableCell className="poppins" align="right">
+                Gender
+              </TableCell>
+              <TableCell className="poppins" align="right">
+                Birthday
+              </TableCell>
+              <TableCell className="poppins" align="right" />
             </TableRow>
           </TableHead>
           <TableBody>

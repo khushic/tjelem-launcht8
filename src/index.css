@@ -12,6 +12,83 @@ code {
     monospace;
 }
 
-.invisible{
-  display: none;
+.invisible_cust{
+  display: none!important;
+}
+
+.text-left{
+  text-align: left;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.padding-all-classes{
+  margin-top: 8rem;
+  margin-bottom: 6rem;
+  overflow: scroll;
+}
+
+.padding-left{
+  margin-left: 10rem;
+  margin-right: 7rem;
+  margin-top: 8rem;
+  margin-bottom: 6rem;
+}
+
+.teacher-name{
+  padding-top: 1rem;
+  margin-right: 0rem;
+}
+
+.btn-custom{
+  border-style: solid!important;
+  border-color: #ecd100!important;
+  background-color: #ecd100;
+  color: white;
+  border-width: 1px!important;
+  border-radius: 3px!important;
+  margin-left: .25rem;
+  font-size: 1rem!important;
+  padding: 0.5rem 1rem;
+}
+
+
+.student-section{
+  padding-top: 2rem;
+  margin-right: 2rem;
+  border-bottom: 2px solid black;
+}
+
+.indiv-student{
+  padding-top: .5rem;
+}
+
+.grades{
+  padding-left: 3.5rem;
+}
+
+.form-control {
+  max-width: max-content;
+  display:inline-block!important;
+  height: 2.75rem;
+}
+
+.inline{
+  display:inline-block;
+}
+
+.all-students{
+  background-color: white;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1rem;
+  padding: 0rem 2rem 1rem;
+  margin-top: 1rem;
+}
+
+.class-header{
+  padding: 0rem 1rem;
 }

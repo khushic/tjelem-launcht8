@@ -3,10 +3,10 @@ const app = express();
 const port = 8000;
 const cors = require("cors");
 const db = require("./firebase");
-var admin = require('firebase-admin');
+var admin = require("firebase-admin");
 const axios = require("axios");
 
-db.settings({ignoreUndefinedProperties: true})
+db.settings({ ignoreUndefinedProperties: true });
 app.use(express.json());
 app.use(cors());
 
@@ -32,16 +32,31 @@ app.post("/class/add", async (req, res) => {
     teacher_id,
   });
 
-  console.log("Added class with ID: ", resp.id);
-  res.sendStatus(200);
+  console.log(`Added element with id: ${resp.id}`);
+
+  const snapshot = await db.collection("classes").get();
+
+  let classList = [];
+
+  snapshot.forEach((doc) => {
+    classList.push({ ...doc.data(), id: doc.id });
+  });
+  res.send(classList);
+
+  // res.sendStatus(200);
 });
 
 app.delete("/class/delete", async (req, res) => {
   const { id } = req.body;
   console.log(db.collection("classes").doc(id));
 
-  const resp = await db.collection("classes").doc(id).delete();
-  console.log(`Deleted element with id: ${id}`);
+  const resp = await db
+    .collection("classes")
+    .doc(id)
+    .delete()
+    .then(() => {
+      console.log(`Deleted element with id: ${id}`);
+    });
   res.sendStatus(200);
 });
 
@@ -74,57 +89,66 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/classes/get_class", async(req, res) => {
+app.get("/classes/get_class", async (req, res) => {
   var class_id = req.query.class_id;
   console.log(class_id);
   var classes = db.collection("classes").doc(class_id);
-  classes.get().then((doc) => {
-    if (doc.exists) {
+  classes
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
         res.send(doc.data());
-    } else {
+      } else {
         res.sendStatus(404);
-    }
-  }).catch((error) => {
-    res.sendStatus(404);
-  });
+      }
+    })
+    .catch((error) => {
+      res.sendStatus(404);
+    });
 });
 
-app.get("/classes/teacher_name", async(req, res) => {
+app.get("/classes/teacher_name", async (req, res) => {
   var teacher_id = req.query.teacher_id;
   var teacher = db.collection("teachers").doc(teacher_id);
-  teacher.get().then((doc) => {
-    if (doc.exists) {
+  teacher
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
         res.send({
-          "first_name": doc.data().first_name,
-          "last_name": doc.data().last_name,
+          first_name: doc.data().first_name,
+          last_name: doc.data().last_name,
         });
-    } else {
+      } else {
         res.sendStatus(404);
-    }
-  }).catch((error) => {
-    res.sendStatus(404);
-  });
+      }
+    })
+    .catch((error) => {
+      res.sendStatus(404);
+    });
 });
 
-app.get("/classes/student_grade", async(req, res) => {
+app.get("/classes/student_grade", async (req, res) => {
   var student_id = req.query.student_id;
   var student = db.collection("students").doc(student_id);
-  student.get().then((doc) => {
-    if (doc.exists) {
+  student
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
         res.send({
-          "first_name": doc.data().first_name,
-          "last_name": doc.data().last_name,
-          "class_grade": doc.data().class_grade
+          first_name: doc.data().first_name,
+          last_name: doc.data().last_name,
+          class_grade: doc.data().class_grade,
         });
-    } else {
+      } else {
         res.sendStatus(404);
-    }
-  }).catch((error) => {
-    res.sendStatus(404);
-  });
+      }
+    })
+    .catch((error) => {
+      res.sendStatus(404);
+    });
 });
 
-app.get("/classes/get_all_students", async(req, res) => {
+app.get("/classes/get_all_students", async (req, res) => {
   var class_id = req.query.class_id;
   const students = await db.collection("students").get();
   const student_list = [];
@@ -132,65 +156,71 @@ app.get("/classes/get_all_students", async(req, res) => {
   console.log(classes.data());
 
   students.forEach((b) => {
-    if(!classes.data().students.includes(b.id)){
-      student_list.push({ id: b.id, first_name: b.data().first_name, last_name: b.data().last_name });
+    if (!classes.data().students.includes(b.id)) {
+      student_list.push({
+        id: b.id,
+        first_name: b.data().first_name,
+        last_name: b.data().last_name,
+      });
     }
   });
   res.send(student_list);
 });
 
-app.post("/classes/add_student", async(req, res) => {
+app.post("/classes/add_student", async (req, res) => {
   console.log(req.body);
-  const {class_id, student_id} = req.body;
+  const { class_id, student_id } = req.body;
   var classes = db.collection("classes").doc(class_id);
 
   var arrUnion = classes.update({
-    students: admin.firestore.FieldValue.arrayUnion(student_id)
+    students: admin.firestore.FieldValue.arrayUnion(student_id),
   });
   res.sendStatus(200);
 });
 
-app.delete("/classes/remove_student", async(req, res) =>{
+app.delete("/classes/remove_student", async (req, res) => {
   console.log(req.body);
-  const {class_id, student_id} = req.body;
+  const { class_id, student_id } = req.body;
   var classes = db.collection("classes").doc(class_id);
 
   var arrUnion = classes.update({
-    students: admin.firestore.FieldValue.arrayRemove(student_id)
+    students: admin.firestore.FieldValue.arrayRemove(student_id),
   });
   res.sendStatus(200);
 });
 
-app.put("/classes/update_grades", async(req, res) => {
-  const {student_id, new_grade} = req.body;
+app.put("/classes/update_grades", async (req, res) => {
+  const { student_id, new_grade } = req.body;
   var students = db.collection("students").doc(student_id);
 
-  students.update({
-    class_grade: new_grade
-  })
-  .then(() => {
+  students
+    .update({
+      class_grade: new_grade,
+    })
+    .then(() => {
       console.log("Document successfully updated!");
       res.sendStatus(200);
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       console.error("Error updating document: ", error);
-  });
+    });
 });
 
-app.put("/classes/update_teacher", async(req, res) => {
-  const {class_id, new_teacher} = req.body;
+app.put("/classes/update_teacher", async (req, res) => {
+  const { class_id, new_teacher } = req.body;
   var classes = db.collection("classes").doc(class_id);
 
-  classes.update({
-    teacher_id: new_teacher
-  })
-  .then(() => {
+  classes
+    .update({
+      teacher_id: new_teacher,
+    })
+    .then(() => {
       console.log("Document successfully updated!");
       res.sendStatus(200);
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       console.error("Error updating document: ", error);
-  });
+    });
 });
 
 app.delete("/student/directory/delete", async (req, res) => {
@@ -332,8 +362,16 @@ app.delete("/teacher/directory/delete", async (req, res) => {
 app.post("/teacher/directory/add", async (req, res) => {
   // console.log(req.body);
 
-  const { address, birthday, email, first_name, gender, grade, last_name } =
-    req.body;
+  const {
+    address,
+    birthday,
+    email,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    resource,
+  } = req.body;
 
   const resp = await db.collection("teachers").add({
     address,
@@ -343,6 +381,7 @@ app.post("/teacher/directory/add", async (req, res) => {
     gender,
     grade,
     last_name,
+    resource,
   });
 
   console.log(`Added element with id: ${resp.id}`);
@@ -360,8 +399,17 @@ app.post("/teacher/directory/add", async (req, res) => {
 });
 
 app.put("/teacher/directory/edit", async (req, res) => {
-  const { address, birthday, email, first_name, gender, grade, last_name, id } =
-    req.body;
+  const {
+    address,
+    birthday,
+    email,
+    first_name,
+    gender,
+    grade,
+    last_name,
+    resource,
+    id,
+  } = req.body;
 
   console.log("id: ", req.body.id);
 
@@ -373,6 +421,7 @@ app.put("/teacher/directory/edit", async (req, res) => {
     gender,
     grade,
     last_name,
+    resource,
   });
 
   console.log(`Edited element with id: ${id}`);
@@ -389,51 +438,51 @@ app.put("/teacher/directory/edit", async (req, res) => {
   // res.sendStatus(200);
 });
 
-app.get('/events/get', async (req, res)=> {
-  const snapshot= await db.collection("events").get();
+app.get("/events/get", async (req, res) => {
+  const snapshot = await db.collection("events").get();
   const events = [];
 
-  snapshot.forEach((doc)=> {
-      events.push({...doc.data(), id: doc.id})
-  })
-  res.send(events);
-})
-
-app.post("/events/add", async (req, res)=>{
-  const {title , description, location, start, time, displaydate} = req.body;
-  console.log(description)
-  const resp = await db.collection("events").add({
-      title,
-      description,
-      location,
-      start,
-      time,
-      displaydate
+  snapshot.forEach((doc) => {
+    events.push({ ...doc.data(), id: doc.id });
   });
-  console.log("added document with id: ", resp.id)
-})
-app.put("/events/edit", async (req, res)=>{
-  const {title , description, location, start, id, time, displaydate} = req.body;
-  console.log("edited",id)
-  console.log(start)
-  const change = db.collection('events').doc(id);
+  res.send(events);
+});
+
+app.post("/events/add", async (req, res) => {
+  const { title, description, location, start, time, displaydate } = req.body;
+  console.log(description);
+  const resp = await db.collection("events").add({
+    title,
+    description,
+    location,
+    start,
+    time,
+    displaydate,
+  });
+  console.log("added document with id: ", resp.id);
+});
+app.put("/events/edit", async (req, res) => {
+  const { title, description, location, start, id, time, displaydate } =
+    req.body;
+  console.log("edited", id);
+  console.log(start);
+  const change = db.collection("events").doc(id);
   const resp = await change.update({
     title,
     description,
     location,
     time,
     displaydate,
-    start});
-})
+    start,
+  });
+});
 
-app.delete("/events/delete", async (req, res)=>{
+app.delete("/events/delete", async (req, res) => {
   const id = req.query.id;
-  console.log(id)
-  console.log("deleted document with id: ", id)
+  console.log(id);
+  console.log("deleted document with id: ", id);
   const resp = await db.collection("events").doc(id).delete();
-  
-})
-
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
