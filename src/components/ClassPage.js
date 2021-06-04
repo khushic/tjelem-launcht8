@@ -174,14 +174,14 @@ function ClassPage(props) {
               </select>
               <button
                 id="updateStudents"
-                className="inline btn-custom roboto"
+                className="inline btn-custom roboto blue-font"
                 onClick={() => updateStudent()}
               >
                 <AddIcon />
               </button>
               <button
                 id="cancelStudents"
-                className="inline btn-custom roboto"
+                className="inline btn-custom roboto blue-font"
                 onClick={() => cancelEdit()}
               >
                 <CloseIcon />
@@ -189,7 +189,7 @@ function ClassPage(props) {
             </div>
             <button
               id="editStudents"
-              className="btn-custom roboto"
+              className="btn-custom roboto blue-font"
               onClick={() => addStudent()}
             >
               <AddIcon /> ADD STUDENT

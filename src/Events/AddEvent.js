@@ -4,7 +4,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } f
 import Clock from "@material-ui/icons/Event"
 import Description from "@material-ui/icons/Description"
 import Location from "@material-ui/icons/LocationOn"
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import ClockIcon from '@material-ui/icons/AccessTime'
 import Close from "@material-ui/icons/Close"
@@ -12,17 +12,18 @@ import moment from "moment"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#ECD100",
-      color: "white",
+      color: "#02075d",
       fontWeight: "bold",
+      fontFamily: 'Lato, sans-serif',
     },
     addbutton2: {
       background: "#ECD100",
-      color: "white",
-      borderRadius: 20,
+      color: "#02075d",
+      borderRadius: 5,
       boxShadow: 10,
     },
   }));
-  
+
 export default function AddEvent({setEvents}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -72,14 +73,14 @@ const addEvent = () =>{
   axios.post("http://localhost:8000/events/add", newEvent)
   .then(response => {
       console.log(response);
-  }) 
+  })
   .catch(error => {
       console.log(error)
   })
   updateData();
   updateData();
   handleClose();
-} 
+}
 const handleChange = (prop) => (e) =>{
     if ('title' === prop){
       setTitle(e.target.value)
@@ -100,8 +101,8 @@ const handleChange = (prop) => (e) =>{
 
   return (
     <div style={{ marginRight:250}}>
-      <Button className={classes.addbutton2} onClick={handleClickOpen} style={{marginLeft:1340, width:100}}> Add <AddCircleIcon style={{marginLeft:7}} variant="outlined"></AddCircleIcon></Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title"> 
+      <Button className={classes.addbutton2} onClick={handleClickOpen} style={{marginLeft:1340, width:100}}><AddCircleIcon style={{marginLeft:7}} variant="outlined"></AddCircleIcon>Add</Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle style={{ display:"flex"}} id="form-dialog-title"><span style={{fontSize:30, marginLeft:180,fontWeight:"bold", fontFamily: "Poppins"}}>Add Event</span><Button style={{marginLeft:125}} onClick={handleClose} color="primary">
             <Close></Close>
           </Button></DialogTitle>
@@ -113,7 +114,7 @@ const handleChange = (prop) => (e) =>{
           <div style={{ marginLeft:30,marginRight:30}}><h2 style={{fontWeight: "normal", fontSize:21, marginTop:30}}>Location</h2>   <TextField  style={{width: 435}} onChange={handleChange('location')}/></div>
         </DialogContent>
         <DialogActions>
-   
+
           <Button className={classes.addbutton} style={{marginRight:18, width:500, marginTop:18,marginBottom:10}} onClick={addEvent} color="primary">
             Add Event
           </Button>

@@ -296,7 +296,7 @@ const StudentDirectory = ({ students, setStudents }) => {
 
     return (
       <div>
-        <Button id={row.id} onClick={handleEditOpen}>
+        <Button id={row.id} onClick={handleEditOpen} className="blue-font">
           <EditIcon />
         </Button>
         <Modal
@@ -376,7 +376,7 @@ const StudentDirectory = ({ students, setStudents }) => {
                 onChange={(e) => setEditedParents(e.target.value)}
               />
               <br />
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" variant="contained" color="primary" className="blue-font">
                 Edit Student
               </Button>
             </form>
@@ -490,7 +490,7 @@ const StudentDirectory = ({ students, setStudents }) => {
       >
         <h1></h1>
         <div>
-          <button className="btn-custom" onClick={handleOpen}>
+          <button className="btn-custom blue-font" onClick={handleOpen} >
             <AddIcon /> Add Student
           </button>
           <Modal

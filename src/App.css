@@ -58,6 +58,14 @@
   font-family: "Poppins", sans-serif !important;
 }
 
+.roboto{
+  font-family: 'Lato', sans-serif!important;
+}
+
 .padding-modal {
   padding: 1rem;
+}
+
+.blue-font{
+  color: #02075d!important;
 }

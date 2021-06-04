@@ -18,7 +18,7 @@ import Close from "@material-ui/icons/Close"
 const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#02075d",
-      color: "white",
+      color: "#02075d",
       fontWeight: "bold",
     },
     root: {

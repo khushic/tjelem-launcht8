@@ -103,17 +103,17 @@ function StudentGrades(props){
             <option value="1">Okay</option>
             <option value="2">Good</option>
           </select>
-          <button id={props.student_id+"updateGrade"} className="btn-custom inline" onClick={() => updateGrade()}>
+          <button id={props.student_id+"updateGrade"} className="btn-custom inline blue-font" onClick={() => updateGrade()}>
           <CheckIcon/>
           </button>
-          <button id={props.student_id+"cancelButton"} className="btn-custom inline" onClick={() => cancelEdit()}>
+          <button id={props.student_id+"cancelButton"} className="btn-custom inline blue-font" onClick={() => cancelEdit()}>
             <CloseIcon/>
           </button>
         </div>
-        <button id={props.student_id+"editButton"} className="btn-custom inline" onClick={() => editGrade()}>
+        <button id={props.student_id+"editButton"} className="btn-custom inline blue-font" onClick={() => editGrade()}>
           <CreateIcon />
         </button>
-        <button className="btn-custom inline" onClick={() => removeStudent()}>
+        <button className="btn-custom inline blue-font" onClick={() => removeStudent()}>
           <DeleteIcon />
         </button>
       </div>

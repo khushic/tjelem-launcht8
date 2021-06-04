@@ -142,6 +142,7 @@ export default function SchoolDirClass() {
                     event.stopPropagation();
                     editClass(c.id);
                   }}
+                  className="blue-font"
                   style={{
                     backgroundColor: "#ECD100",
                     color: "white",
@@ -168,6 +169,7 @@ export default function SchoolDirClass() {
                     event.stopPropagation();
                     delClass(c.id);
                   }}
+                  className="blue-font"
                   style={{
                     backgroundColor: "#ECD100",
                     color: "white",
@@ -201,7 +203,7 @@ export default function SchoolDirClass() {
               handleOpen();
               addClass();
             }}
-            className="roboto"
+            className="roboto blue-font"
           >
             <AddIcon />
             Add Class
