@@ -40,7 +40,7 @@ function ClassPage(props){
         last_name={obj.last_name}
         grade={obj.class_grade}
         update_list={updateClassInfo}
-        class_id={class_id}
+        class_id={props.classid}
         key={student_id}
       />)
       student_list.push(temp);
@@ -53,7 +53,7 @@ function ClassPage(props){
 
   const updateClassInfo = () => {
     const url = new URL("http://localhost:8000/classes/get_class")
-    url.searchParams.append("class_id", class_id);
+    url.searchParams.append("class_id", props.classid);
     fetch(url)
     .then((resp) => {
       var temp = resp.json();
@@ -76,7 +76,7 @@ function ClassPage(props){
         <StudentGrades
           update={updateClassInfo}
           key={o}
-          class_id={class_id}
+          class_id={props.classid}
           student_id={o}
         />
       ));
@@ -91,7 +91,7 @@ function ClassPage(props){
 
   const updateSelectDropdown = () => {
     const url = new URL("http://localhost:8000/classes/get_all_students")
-    url.searchParams.append("class_id", class_id);
+    url.searchParams.append("class_id", props.classid);
     fetch(url)
     .then((resp) => {
       var temp = resp.json();
@@ -130,7 +130,7 @@ function ClassPage(props){
     var e = document.getElementById("add_dropdown").value;
     console.log(e);
     const url = new URL("http://localhost:8000/classes/add_student")
-    const data = { "class_id": class_id, "student_id": e };
+    const data = { "class_id": props.classid, "student_id": e };
     axios.post(url, data)
     .then((resp) => {
       console.log(resp);
