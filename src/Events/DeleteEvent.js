@@ -6,7 +6,8 @@ import DeleteButton from '@material-ui/icons/Delete'
 const useStyles = makeStyles((theme) => ({
     addbutton: {
       background: "#02075d",
-      color: "white"
+      color: "white",
+      fontWeight: "bold",
     },
   }));
 

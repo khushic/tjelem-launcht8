@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      width:1850,
+      width:"100%",
       marginLeft: 70,
       marginTop: 15,
       height:600
