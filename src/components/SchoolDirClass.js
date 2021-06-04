@@ -183,9 +183,12 @@ export default function SchoolDirClass() {
             onClose={handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
+            className="padding-modal"
           >
             <div style={modalStyle} className={styles.paper}>
+              <div className="padding-modal">
               <h2 classname="roboto">Empty class created! Press the button below to edit:</h2>
+              <br />
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#ECD100", color: "white" }}
@@ -193,6 +196,7 @@ export default function SchoolDirClass() {
               >
                 Edit
               </Button>
+              </div>
             </div>
           </Modal>
         </div>
