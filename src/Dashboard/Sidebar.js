@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: "#02075d",
-    marginTop: 120,
+    marginTop: 140,
     fontSize: "2.5em",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -55,14 +55,14 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: 0,
     paddingTop: 10,
-    height: 120,
+    height: 140,
     background: "#e3ecff",
     width: "100%",
     color: "#02075d",
     marginBottom: 7,
   },
   appBarShift: {
-    marginTop: 120,
+    marginTop: 140,
     marginLeft: drawerWidth,
     fontSize: "2.5em",
     width: `calc(100% - ${drawerWidth}px)`,
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   drawerOpen: {
-    marginTop: 120,
+    marginTop: 140,
     width: drawerWidth,
     background: "#02075d",
     color: "white",
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
-    marginTop: 120,
+    marginTop: 140,
     background: "#02075d",
     color: "white",
     transition: theme.transitions.create("width", {
@@ -132,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
     // fontDisplay: 'swap',
     fontWeight: 550,
     fontSize: 40,
+    marginTop:11
   },
   smalltext: {
     // fontFamily: "Segoe UI Symbol",
@@ -166,7 +167,7 @@ export default function MiniDrawer() {
       <CssBaseline />
       <div className={classes.topPush} style={{ display: "flex" }}>
         <img
-          style={{ width: 110, marginLeft: 100, marginBottom: 3 }}
+          style={{ width: 110, marginLeft: 100, marginBottom: 13, marginTop:6 }}
           src={TJlogo}
         ></img>
         <div style={{ textAlign: "left", marginLeft: 50 }}>
@@ -330,12 +331,21 @@ export default function MiniDrawer() {
         <Divider />
         <div
           className={classes.bottomPush}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: "inline", float: "right", height:"max-content", width: "100%", marginRight:"0" }}
         >
-          <Typography style={{ marginLeft: 30, marginTop: 7 }}>
-            Thomas Jefferson Elementary School
+          <Typography style={{ marginLeft: 85, marginRight: 50, marginTop: 15, display: "inline", float:"left", width: "28%"  }}>
+            Principal Camille Cooper<br />
+            camillecooper@tjes.edu<br />
+           434-293-4402 ext 100 <br/>
           </Typography>
-          <Typography style={{ marginRight: 30, marginTop: 7 }}>
+          <Typography style={{ marginRight: 50, marginTop: 15, display: "inline", float:"left", width: "28%"   }}>
+            1609 University Ave,<br />
+            Charlottesville, VA 22903 <br />
+            434-293-4402 <br/>
+            contactus@tjes.edu
+          </Typography>
+          <Typography style={{ marginRight: 0, marginTop: 15, display: "inline", float:"left", width: "27%"   }}>
+            Thomas Jefferson Elementary School <br/>
             Team 8; Updated June 4th, 2021
           </Typography>
         </div>

@@ -47,37 +47,55 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(6),
       paddingRight: 0,
     },
-  },
-  icons: {
-    color: "#02075d",
-    fontSize: 85,
-    marginTop: 25,
-  },
-  text: {
-    fontFamily: "Arial",
-    color: "#02075d",
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-  mainTitle: {
-    fontFamily: "Arial",
-    fontSize: 45,
-    fontWeight: "bold",
-  },
-}));
+
+    overlay: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      backgroundColor: 'rgba(0,0,0,.4)',
+    },
+    mainFeaturedPostContent: {
+
+      position: 'relative',
+      padding: theme.spacing(3),
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(6),
+        paddingRight: 0,
+      },
+    },
+    icons :{
+        color: "#02075d",
+        fontSize: 85,
+        marginTop:25
+    },
+    text :{
+        fontFamily: "Arial",
+        color: "#02075d",
+        fontSize:17,
+        fontWeight: "bold"
+    },
+    mainTitle: {
+        fontFamily: "Arial",
+        fontSize:45,
+        fontWeight: "bold"
+    }
+  }));
 
 export default function Home() {
   const classes = useStyles();
   const [events, setEvents] = useState([]);
 
-  const mainFeaturedPost = {
-    title: "Welcome",
-    description:
-      "Thomas Jefferson is an International Baccalaureate World School full of promising young students.",
-    image: pic,
-    imgText: "main image description",
-    linkText: "Start your search now…",
-  };
+
+    const mainFeaturedPost = {
+      title: 'Positivity, Respect, Diversity, Education, and Comradery',
+      description:
+        "At Thomas Jefferson Elementary School, we are a diverse community of global citizens and lifelong learners that lead by example. We believe in the power of positivity, respect, and cooperation. We manifest our potential through confidence and work ethic.",
+      image: pic,
+      imgText: 'main image description',
+      linkText: 'Start your search now…',
+    };
 
   useEffect(() => {
     fetch("http://localhost:8000/events/get")
@@ -227,6 +245,7 @@ export default function Home() {
           </Button>
         </Box>
         {/* <Box bgcolor="#02075D" style={{width:450, marginLeft:1000, marginBottom:100}}>
+
               Upcoming Schedule
           <div >
     <FullCalendar
