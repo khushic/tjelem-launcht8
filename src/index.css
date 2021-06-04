@@ -36,8 +36,8 @@ code {
 
 .btn-custom{
   border-style: solid!important;
-  border-color: grey!important;
-  background-color: #02075d;
+  border-color: #ecd100!important;
+  background-color: #ecd100;
   color: white;
   border-width: 1px!important;
   border-radius: 3px!important;
@@ -45,6 +45,7 @@ code {
   font-size: 1.25rem!important;
   padding: 0.5rem 1rem;
 }
+
 
 .student-section{
   padding-top: 2rem;

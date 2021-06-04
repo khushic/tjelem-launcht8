@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import StudentGrades from "./StudentGrades"
 import axios from 'axios';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
 function ClassPage(props){
@@ -157,14 +157,14 @@ function ClassPage(props){
               {newStudents}
             </select>
             <button id="updateStudents" className="inline btn-custom" onClick={() => updateStudent()}>
-              <AddCircleOutlineIcon/>
+              <AddIcon/>
             </button>
             <button id="cancelStudents" className="inline btn-custom" onClick={() => cancelEdit()}>
               <CloseIcon/>
             </button>
           </div>
           <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
-            <AddCircleOutlineIcon/>
+            <AddIcon/> ADD STUDENT
           </button>
         </div>
         </div>

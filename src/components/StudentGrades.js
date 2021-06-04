@@ -6,6 +6,7 @@ import axios from 'axios';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 function StudentGrades(props){
   const [first, setFirst] = useState([]);
@@ -103,7 +104,7 @@ function StudentGrades(props){
             <option value="2">Good</option>
           </select>
           <button id={props.student_id+"updateGrade"} className="btn-custom inline" onClick={() => updateGrade()}>
-            Submit Update
+          <CheckIcon/>
           </button>
           <button id={props.student_id+"cancelButton"} className="btn-custom inline" onClick={() => cancelEdit()}>
             <CloseIcon/>
