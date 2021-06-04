@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import StudentGrades from "./StudentGrades"
 import axios from 'axios';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import CloseIcon from '@material-ui/icons/Close';
 
 function ClassPage(props){
   const [students, setStudents] = useState([]);
@@ -106,7 +108,7 @@ function ClassPage(props){
 
   useEffect(() => {
     updateClassInfo();
-    document.getElementById("add-student-div").classList.add("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
   }, []);
 
   useEffect(() => {
@@ -115,13 +117,13 @@ function ClassPage(props){
   }, [students]);
 
   const addStudent = () => {
-    document.getElementById("add-student-div").classList.remove("invisible");
-    document.getElementById("editStudents").classList.add("invisible");
+    document.getElementById("add-student-div").classList.remove("invisible_cust");
+    document.getElementById("editStudents").classList.add("invisible_cust");
   }
 
   const cancelEdit = () => {
-    document.getElementById("add-student-div").classList.add("invisible");
-    document.getElementById("editStudents").classList.remove("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
+    document.getElementById("editStudents").classList.remove("invisible_cust");
   }
 
   const updateStudent = () => {
@@ -137,13 +139,13 @@ function ClassPage(props){
     updateClassInfo();
     updateClassInfo();
     updateClassInfo();
-    document.getElementById("add-student-div").classList.add("invisible");
-    document.getElementById("editStudents").classList.remove("invisible");
+    document.getElementById("add-student-div").classList.add("invisible_cust");
+    document.getElementById("editStudents").classList.remove("invisible_cust");
   }
 
   return (
     <div className="padding-left">
-      <div className="row row-cust">
+      <div className="row row-cust class-header">
         <div className="col-7">
           <h1 className="text-left">{grade} Grade Class</h1>
           <h4 className="text-left">{teacher}</h4>
@@ -155,24 +157,26 @@ function ClassPage(props){
               {newStudents}
             </select>
             <button id="updateStudents" className="inline btn-custom" onClick={() => updateStudent()}>
-              Add Student
+              <AddCircleOutlineIcon/>
             </button>
             <button id="cancelStudents" className="inline btn-custom" onClick={() => cancelEdit()}>
-              Cancel
+              <CloseIcon/>
             </button>
           </div>
           <button id="editStudents" className="btn-custom" onClick={() => addStudent()}>
-            Add Student
+            <AddCircleOutlineIcon/>
           </button>
         </div>
         </div>
       </div>
+      <div className="all-students">
       <div className="row student-section">
-        <div className="col-3 text-left"><h5>Student Name</h5></div>
+        <div className="col-4 text-left"><h5>Student Name</h5></div>
         <div className="col-4 text-left"><h5>Student Grade</h5></div>
         <div className="col-4"></div>
       </div>
       {students}
+      </div>
     </div>
   );
 }
