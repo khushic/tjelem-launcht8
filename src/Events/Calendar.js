@@ -84,28 +84,28 @@ const changeEditState = (date, title, description, location) =>{
           setEditedTime(theTime)
         }
     } else {
-    
+
         setEditState(false);
     }
 }
 const time = (each) =>{
   if (each.extendedProps.time === ""){
     return "All Day"
-  } 
+  }
   if (each.extendedProps.time !== undefined){
     return each.extendedProps.time
-  } 
+  }
   return "All Day"
 }
 
 
   return (
-    <div style={{marginLeft:350, marginBottom:100, textAlign:"center", marginTop:100, alignItems:"center", justifyContent:"center", width:1300}}>
+    <div style={{marginLeft:350, marginBottom:200, textAlign:"center", marginTop:100, alignItems:"center", justifyContent:"center", width:1300}}>
       <h2 style={{marginLeft: 800}}> {Loading()}</h2>
       <AddEvent
       setEvents={setEvents}>
       </AddEvent>
-<FullCalendar 
+<FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin, listPlugin, timeGridPlugin ]}
         initialView="dayGridMonth"
         height={970}
@@ -135,7 +135,7 @@ const time = (each) =>{
         theme={true}
       />
 
-      { editState ? event !== null &&  
+      { editState ? event !== null &&
       <EditEvent
       setEditedTime={setEditedTime}
       setEditState={setEditState}
@@ -154,8 +154,8 @@ const time = (each) =>{
       id={event.publicId}>
       </EditEvent> :  event !== null &&  <Dialog className={classes.root} color fullWidth="1000xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title"><Box bgcolor="#e3ecff">
         <DialogTitle style={{justifyContent:"center", display:"flex"}} id="form-dialog-title"><span style={{ fontWeight: 'bold', fontSize:30, fontFamily: "Poppins"}}>{event.title}</span></DialogTitle>
-        <DialogContent> 
-          <Box border={1} borderColor="#778899" bgcolor="white"> 
+        <DialogContent>
+          <Box border={1} borderColor="#778899" bgcolor="white">
           <div style={{ marginLeft:30,marginRight:30}}>
             <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Date and Time</h2> <Clock style={{ marginLeft:20}}></Clock><span style={{fontSize:17, marginLeft:12}}>{getDate(date.start)}- {time(event)}</span></div>
             <Divider style={{marginTop:20}}></Divider>
@@ -164,7 +164,7 @@ const time = (each) =>{
           <span style={{alignItems:"flex-end"}}><Description style={{ marginLeft:20}}></Description> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.description}</span></span></div>
           <Divider style={{marginTop:20}}></Divider>
           <div style={{ marginLeft:30,marginRight:30, marginBottom:20}}> <h2 style={{fontSize:24, marginTop: 15, marginBottom:10}}>Location</h2><Location style={{marginLeft:20}}></Location> <span style={{fontSize:17, marginLeft:10}}>{event.extendedProps.location} </span></div></Box>
-        </DialogContent> 
+        </DialogContent>
         <DialogActions>
             <DeleteEvent
             setOpen={setOpen}
@@ -172,11 +172,11 @@ const time = (each) =>{
             id={event.publicId}></DeleteEvent>
             <Button className={classes.addbutton} color="primary"  style={{marginTop:10, marginBottom:10, marginRight:425}} onClick={()=>changeEditState(event.extendedProps.displaydate, event.title, event.extendedProps.description, event.extendedProps.location)}>
               <EditButton></EditButton></Button>
-    
+
         </DialogActions>
         </Box>
       </Dialog>}
-      
+
     </div>
   );
 }
